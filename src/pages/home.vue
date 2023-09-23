@@ -65,6 +65,23 @@
         </VCol>
     </VRow>
 
+    <VRow class="mt-10">
+        <VCol cols="2" lg="12" md="12" sm="12" xs="12">
+            <v-container>
+                <v-form class="form-coms" @submit.prevent="addComment">
+                    <VTextField class="input-coms" label="Dire bonjour" required></VTextField>
+                    <v-btn class="submit-coms" type="submit" color="primary">Publiez</v-btn>
+                </v-form>
+                <v-col class="other-pub">
+                    <v-chip-group multiple selected-class="text-primary">
+                        <v-chip>
+                            <VIcon size="20" icon="bx-image" />
+                        </v-chip>
+                    </v-chip-group>
+                </v-col>
+            </v-container>
+        </VCol>
+    </VRow>
 
     <h1 class="mt-10">Actualite</h1>
     <VRow>
@@ -75,7 +92,7 @@
                 <VCardItem class="pb-3 ">
                     <VCardTitle class="mb-1">
                         <VAvatar size="34" :image="data.avatarImg" />
-                        <span class="ms-2 avatar-name">{{ data.avatarName }} a avtualiser une statut</span>
+                        <span class="ms-2 avatar-name">{{ data.avatarName }} a actualiser une statut</span>
                     </VCardTitle>
 
                     <template #append>
@@ -760,10 +777,6 @@ span.font-weight-medium.mutual-friends {
     height: 30px !important;
 }
 
-// .v-card.v-theme--dark.v-card--density-default.v-card--variant-elevated.mt-3.pub-media-share {
-//     background-color: #696cff;
-// }
-
 //pub statut share
 .v-card.v-theme--dark.v-card--density-default.v-card--variant-elevated.mt-3.pub-share {
     background-color: #232333 !important;
@@ -844,5 +857,15 @@ button.v-btn.v-btn--elevated.v-theme--light.bg-primary.v-btn--density-default.v-
 
 .v-card.v-theme--light.v-card--density-default.v-card--variant-elevated.pub-media {
     background-color: #fff !important;
+}
+
+
+.v-col.other-pub {
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+.other-pub .v-chip-group .v-chip {
+    margin: 0 !important;
 }
 </style>
