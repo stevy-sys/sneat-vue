@@ -47,7 +47,8 @@
                 <VWindow v-model="navigationTab2">
                     <VWindowItem v-for="item in tabItems" :key="item" :value="item" class="text-center">
                         <div v-if="item == 'Journal'">
-                            <VCard class="mt-3" v-for="data in solidCardData" :key="data.icon" :color="data.cardBg">
+                            <VCard class="mt-3 pub-status" v-for="data in solidCardData" :key="data.icon"
+                                :color="data.cardBg">
                                 <VCardText class="d-flex justify-space-between align-center flex-wrap">
                                     <div class="text-no-wrap">
                                         <VAvatar size="34" :image="data.avatarImg" />
@@ -58,7 +59,7 @@
                                 </VCardText>
 
                                 <VCardText class="card-text-contenu">
-                                    <VCard class="mt-3 pub-media">
+                                    <VCard class="mt-3 pub-media-share">
                                         <div
                                             class="d-flex justify-space-between flex-wrap flex-md-nowrap flex-column flex-md-row">
                                             <div class="ma-auto pa-5">
@@ -72,7 +73,7 @@
                                                     <VCardText class="d-flex justify-space-between align-center flex-wrap">
                                                         <div class="text-no-wrap">
                                                             <VAvatar size="34" :image="solidCardData[0].avatarImg" />
-                                                            <span class=" ms-2 avatar-name">{{
+                                                            <span class="text-white ms-2 avatar-name">{{
                                                                 solidCardData[0].avatarName }} a
                                                                 partage
                                                                 une photo</span>
@@ -81,7 +82,7 @@
                                                 </VCardItem>
 
                                                 <VCardText>
-                                                    <p class="clamp-text  mb-0 textedescription">
+                                                    <p class="clamp-text text-white mb-0 textedescription">
                                                         Lorem ipsum dolor sit amet consectetur adipisicing elit. Iusto,
                                                         debitis.
                                                     </p>
@@ -90,10 +91,10 @@
                                                 <VCardActions class="justify-space-between">
                                                     <div class="d-flex align-center action-pub">
                                                         <IconBtn icon="bx-heart" color="" class="me-1" />
-                                                        <span class="text-subtitle-2  me-4">1.5K</span>
+                                                        <span class="text-subtitle-2 text-white me-4">1.5K</span>
 
                                                         <IconBtn icon="bx-share-alt" color="" class="me-1" />
-                                                        <span class="text-subtitle-2 ">600</span>
+                                                        <span class="text-subtitle-2 text-white">600</span>
                                                     </div>
                                                 </VCardActions>
                                             </div>
@@ -232,11 +233,7 @@
                                         <VList class="card-list">
                                             <VListItem v-for="item in transactions" :key="item.paymentMethod">
                                                 <template #prepend>
-                                                    <!-- <VAvatar rounded variant="tonal" :color="item.color" :image="item.icon"
-                                                        class="me-3" /> -->
-                                                    <!-- <VListItemSubtitle class="text-disabled mb-1">
-                                                        {{ item.paymentMethod }}
-                                                    </VListItemSubtitle> -->
+
                                                     <VListItemTitle>
                                                         {{ item.description }}
                                                     </VListItemTitle>
@@ -254,6 +251,23 @@
                                     </VCardText>
                                 </VCard>
                             </VCol>
+                            <div class="text-center">
+                                <v-btn color="primary">
+                                    Open Dialog
+                                    <v-dialog v-model="dialog" activator="parent" width="auto">
+                                        <v-card>
+                                            <v-card-text>
+                                                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
+                                                tempor incididunt ut labore et dolore magna aliqua.
+                                            </v-card-text>
+                                            <v-card-actions>
+                                                <v-btn color="primary" block @click="dialog = false">Close
+                                                    Dialog</v-btn>
+                                            </v-card-actions>
+                                        </v-card>
+                                    </v-dialog>
+                                </v-btn>
+                            </div>
                         </div>
                     </VWindowItem>
                 </VWindow>
@@ -297,7 +311,7 @@ const accountData = {
     timezone: '(GMT-11:00) International Date Line West',
     currency: 'USD',
 }
-
+const dialog = ref(false)
 const refInputEl = ref()
 const accountDataLocal = ref(structuredClone(accountData))
 const isAccountDeactivated = ref(false)
@@ -528,6 +542,14 @@ const tabItems = [
     display: flex;
     justify-content: space-evenly;
     align-items: center;
+}
+
+.v-card.v-theme--dark.v-card--density-default.v-card--variant-elevated.mt-3.pub-media-share {
+    background-color: #2b2c40;
+}
+
+.v-card.v-theme--dark.v-card--density-default.v-card--variant-elevated.pub-status {
+    background-color: #232333 !important;
 }
 
 .v-list-item.v-theme--light.v-list-item--density-default.v-list-item--one-line.v-list-item--variant-text.list-amis-other {

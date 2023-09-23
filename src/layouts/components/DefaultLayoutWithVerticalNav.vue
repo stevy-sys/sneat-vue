@@ -75,6 +75,11 @@ const upgradeBanner = computed(() => {
         to: '/profile',
       }" />
       <VerticalNavLink :item="{
+        title: 'publication',
+        icon: 'bx-home',
+        to: '/publication',
+      }" />
+      <VerticalNavLink :item="{
         title: 'Groupe',
         icon: 'bx-home',
         to: '/groupe',
