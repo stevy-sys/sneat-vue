@@ -52,14 +52,14 @@
                                 <VCardText class="d-flex justify-space-between align-center flex-wrap">
                                     <div class="text-no-wrap">
                                         <VAvatar size="34" :image="data.avatarImg" />
-                                        <span class="text-white ms-2 avatar-name">{{ data.avatarName }} a partage une photo
+                                        <span class=" ms-2 avatar-name">{{ data.avatarName }} a partage une photo
                                             de
                                             John Doe</span>
                                     </div>
                                 </VCardText>
 
                                 <VCardText class="card-text-contenu">
-                                    <VCard class="mt-3 pub-media-share">
+                                    <VCard class="mt-3 pub-share">
                                         <div
                                             class="d-flex justify-space-between flex-wrap flex-md-nowrap flex-column flex-md-row">
                                             <div class="ma-auto pa-5">
@@ -73,7 +73,7 @@
                                                     <VCardText class="d-flex justify-space-between align-center flex-wrap">
                                                         <div class="text-no-wrap">
                                                             <VAvatar size="34" :image="solidCardData[0].avatarImg" />
-                                                            <span class="text-white ms-2 avatar-name">{{
+                                                            <span class=" ms-2 avatar-name">{{
                                                                 solidCardData[0].avatarName }} a
                                                                 partage
                                                                 une photo</span>
@@ -82,7 +82,7 @@
                                                 </VCardItem>
 
                                                 <VCardText>
-                                                    <p class="clamp-text text-white mb-0 textedescription">
+                                                    <p class="clamp-text  mb-0 textedescription">
                                                         Lorem ipsum dolor sit amet consectetur adipisicing elit. Iusto,
                                                         debitis.
                                                     </p>
@@ -91,21 +91,21 @@
                                                 <VCardActions class="justify-space-between">
                                                     <div class="d-flex align-center action-pub">
                                                         <IconBtn icon="bx-heart" color="" class="me-1" />
-                                                        <span class="text-subtitle-2 text-white me-4">1.5K</span>
+                                                        <span class="text-subtitle-2  me-4">1.5K</span>
 
                                                         <IconBtn icon="bx-share-alt" color="" class="me-1" />
-                                                        <span class="text-subtitle-2 text-white">600</span>
+                                                        <span class="text-subtitle-2 ">600</span>
                                                     </div>
                                                 </VCardActions>
                                             </div>
                                         </div>
                                     </VCard>
                                     <div class="d-flex align-center action-pub">
-                                        <IconBtn icon="bx-heart" color="white" class="me-1" />
-                                        <span class="text-subtitle-2 text-white me-4">{{ data.likes }}</span>
+                                        <IconBtn icon="bx-heart" color="#97a2ac" class="me-1" />
+                                        <span class="text-subtitle-2  me-4">{{ data.likes }}</span>
 
-                                        <IconBtn icon="bx-share-alt" color="white" class="me-1" />
-                                        <span class="text-subtitle-2 text-white">{{ data.share }}</span>
+                                        <IconBtn icon="bx-share-alt" color="#97a2ac" class="me-1" />
+                                        <span class="text-subtitle-2 ">{{ data.share }}</span>
                                     </div>
                                 </VCardText>
                             </VCard>
@@ -544,8 +544,16 @@ const tabItems = [
     align-items: center;
 }
 
-.v-card.v-theme--dark.v-card--density-default.v-card--variant-elevated.mt-3.pub-media-share {
-    background-color: #2b2c40;
+.v-card.v-theme--dark.v-card--density-default.v-card--variant-elevated.mt-3.pub-share {
+    background-color: #2b2c40 !important;
+}
+
+.v-card.v-theme--light.v-card--density-default.v-card--variant-elevated.mt-3.pub-share {
+    background-color: #f5f5f9 !important;
+}
+
+.v-card.v-theme--light.v-card--density-default.v-card--variant-elevated.pub-status {
+    background-color: #fff !important;
 }
 
 .v-card.v-theme--dark.v-card--density-default.v-card--variant-elevated.pub-status {

@@ -70,7 +70,7 @@ const moreList = [
                     <VCardItem class="pb-3 ">
                         <VCardTitle class="mb-1">
                             <VAvatar size="34" :image="data.avatarImg" />
-                            <span class="text-white ms-2 avatar-name">{{ data.avatarName }} a avtualiser une statut</span>
+                            <span class=" ms-2 avatar-name">{{ data.avatarName }} a avtualiser une statut</span>
                         </VCardTitle>
 
                         <template #append>
@@ -81,16 +81,16 @@ const moreList = [
                     </VCardItem>
 
                     <VCardText>
-                        <p class="clamp-text text-white mb-0 textedescription">
+                        <p class="clamp-text  mb-0 textedescription">
                             {{ data.text }}
                         </p>
                         <div class="d-flex align-center action-pub">
-                            <IconBtn icon="bx-heart" color="white" class="me-1" />
-                            <span class="text-subtitle-2 text-white me-4">{{ data.likes }}</span>
-                            <IconBtn icon="bx-comment" color="white" class="me-1" />
-                            <span class="text-subtitle-2 text-white me-4">{{ data.likes }}</span>
-                            <IconBtn icon="bx-share-alt" color="white" class="me-1" />
-                            <span class="text-subtitle-2 text-white">{{ data.share }}</span>
+                            <IconBtn icon="bx-heart" color="#97a2ac" class="me-1" />
+                            <span class="text-subtitle-2  me-4">{{ data.likes }}</span>
+                            <IconBtn icon="bx-comment" color="#97a2ac" class="me-1" />
+                            <span class="text-subtitle-2  me-4">{{ data.likes }}</span>
+                            <IconBtn icon="bx-share-alt" color="#97a2ac" class="me-1" />
+                            <span class="text-subtitle-2 ">{{ data.share }}</span>
                         </div>
                     </VCardText>
                 </VCard>
@@ -154,10 +154,28 @@ const moreList = [
     align-items: center;
 }
 
+span.ms-2.avatar-name {
+    font-size: 11px;
+}
+
 .v-col-sm-5.v-col-xl-4.v-col-12.publication-show.border-e {
     display: flex;
     height: 100vh;
     justify-content: center;
     align-items: center;
+}
+
+.v-card.v-theme--light.pub-status span.ms-2.avatar-name {
+    color: #8e9aa5;
+}
+
+.v-card.v-theme--light.v-card--density-default.v-card--variant-elevated.pub-status {
+    background-color: #fff !important;
+    box-shadow: none;
+}
+
+.v-card.v-theme--dark.v-card--density-default.v-card--variant-elevated.pub-status {
+    background-color: #2b2c40 !important;
+    box-shadow: none;
 }
 </style>

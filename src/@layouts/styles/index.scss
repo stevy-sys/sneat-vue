@@ -1,3 +1,13 @@
 @use "_global";
 @use "vue3-perfect-scrollbar/dist/vue3-perfect-scrollbar.min.css";
 @use "_classes";
+.v-overlay.v-overlay--active.v-theme--light.v-locale--is-ltr.v-dialog.v-dialog--scrollable .v-overlay__scrim {
+    opacity: 0.3 !important;
+}
+.v-overlay.v-overlay--active.v-theme--dark.v-locale--is-ltr.v-dialog.v-dialog--scrollable .v-overlay__scrim {
+    opacity: 0.3 !important;
+}
+
+.v-overlay__content{
+    // width: 50% !important;
+}

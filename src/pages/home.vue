@@ -29,7 +29,7 @@
                                 <template v-slot:activator="{ props }">
                                     <span v-bind="props">8 amis en commun</span>
                                 </template>
-                                <v-card>
+                                <v-card class="modal-friends">
                                     <v-card-title>Select Country</v-card-title>
                                     <v-divider></v-divider>
                                     <v-card-text style="height: 300px;">
@@ -75,7 +75,7 @@
                 <VCardItem class="pb-3 ">
                     <VCardTitle class="mb-1">
                         <VAvatar size="34" :image="data.avatarImg" />
-                        <span class="text-white ms-2 avatar-name">{{ data.avatarName }} a avtualiser une statut</span>
+                        <span class="ms-2 avatar-name">{{ data.avatarName }} a avtualiser une statut</span>
                     </VCardTitle>
 
                     <template #append>
@@ -86,17 +86,17 @@
                 </VCardItem>
 
                 <VCardText>
-                    <p class="clamp-text text-white mb-0 textedescription">
+                    <p class="clamp-text mb-0 textedescription">
                         {{ data.text }}
                     </p>
                     <div class="d-flex align-center action-pub">
-                        <IconBtn icon="bx-heart" color="white" class="me-1" />
-                        <span class="text-subtitle-2 text-white me-4">{{ data.likes }}</span>
-                        <IconBtn @click="isCardDetailsVisible = !isCardDetailsVisible" icon="bx-comment" color="white"
+                        <IconBtn icon="bx-heart" color="#97a2ac" class="me-1" />
+                        <span class="text-subtitle-2  me-4">{{ data.likes }}</span>
+                        <IconBtn @click="isCardDetailsVisible = !isCardDetailsVisible" icon="bx-comment" color="#97a2ac"
                             class="me-1" />
-                        <span class="text-subtitle-2 text-white me-4">{{ data.likes }}</span>
-                        <IconBtn icon="bx-share-alt" color="white" class="me-1" />
-                        <span class="text-subtitle-2 text-white">{{ data.share }}</span>
+                        <span class="text-subtitle-2 me-4">{{ data.likes }}</span>
+                        <IconBtn icon="bx-share-alt" color="#97a2ac" class="me-1" />
+                        <span class="text-subtitle-2 ">{{ data.share }}</span>
                     </div>
                 </VCardText>
 
@@ -148,40 +148,36 @@
             <!-- media publication -->
             <VCard class="mt-3 pub-media">
                 <div class="d-flex justify-space-between flex-wrap flex-md-nowrap flex-column flex-md-row">
-                    <div class="ma-auto pa-5">
-                        <VImg width="250" height="176" :src="eCommerce2" />
-                    </div>
-
-                    <VDivider :vertical="$vuetify.display.mdAndUp" />
 
                     <div>
                         <VCardItem>
                             <VCardText class="d-flex justify-space-between align-center flex-wrap">
                                 <div class="text-no-wrap">
                                     <VAvatar size="34" :image="solidCardData[0].avatarImg" />
-                                    <span class="text-white ms-2 avatar-name">{{ solidCardData[0].avatarName }} a partage
+                                    <span class=" ms-2 avatar-name">{{ solidCardData[0].avatarName }} a partage
                                         une photo</span>
                                 </div>
                             </VCardText>
                         </VCardItem>
 
                         <VCardText>
-                            <p class="clamp-text text-white mb-0 textedescription">
+                            <p class="clamp-text  mb-0 textedescription">
                                 Lorem ipsum dolor sit amet consectetur adipisicing elit. Iusto, debitis.
                             </p>
                         </VCardText>
 
                         <VCardActions class="justify-space-between">
                             <div class="d-flex align-center action-pub">
-                                <IconBtn icon="bx-heart" color="white" class="me-1" />
-                                <span class="text-subtitle-2 text-white me-4">1.5K</span>
+                                <IconBtn icon="bx-heart" color="#97a2ac" class="me-1" />
+                                <span class="text-subtitle-2  me-4">1.5K</span>
                                 <IconBtn @click="isCardDetailsVisible = !isCardDetailsVisible" icon="bx-comment"
-                                    color="white" class="me-1" />
-                                <span class="text-subtitle-2 text-white me-4">55</span>
-                                <IconBtn icon="bx-share-alt" color="white" class="me-1" />
-                                <span class="text-subtitle-2 text-white">600</span>
+                                    color="#97a2ac" class="me-1" />
+                                <span class="text-subtitle-2  me-4">55</span>
+                                <IconBtn icon="bx-share-alt" color="#97a2ac" class="me-1" />
+                                <span class="text-subtitle-2 ">600</span>
                             </div>
                         </VCardActions>
+
                         <VExpandTransition>
                             <div v-show="isCardDetailsVisible">
                                 <v-list>
@@ -227,6 +223,11 @@
                             </div>
                         </VExpandTransition>
                     </div>
+                    <VDivider :vertical="$vuetify.display.mdAndUp" />
+                    <div class="ma-auto pa-5">
+                        <VImg width="250" height="176" :src="eCommerce2" />
+                    </div>
+
                 </div>
             </VCard>
 
@@ -235,7 +236,7 @@
                 <VCardText class="d-flex justify-space-between align-center flex-wrap">
                     <div class="text-no-wrap">
                         <VAvatar size="34" :image="data.avatarImg" />
-                        <span class="text-white ms-2 avatar-name">{{ data.avatarName }} a partage une publication de
+                        <span class="ms-2 avatar-name">{{ data.avatarName }} a partage une publication de
                             John Doe</span>
                     </div>
                 </VCardText>
@@ -245,31 +246,31 @@
                         <VCardText class="d-flex justify-space-between align-center flex-wrap">
                             <div class="text-no-wrap">
                                 <VAvatar size="34" :image="data.avatarImg" />
-                                <span class="text-white ms-2 avatar-name">{{ data.avatarName }}</span>
+                                <span class=" ms-2 avatar-name">{{ data.avatarName }}</span>
                             </div>
                         </VCardText>
 
                         <VCardText>
-                            <p class="clamp-text text-white mb-0 textedescription">
+                            <p class="clamp-text  mb-0 textedescription">
                                 {{ data.text }}
                             </p>
                             <div class="d-flex align-center action-pub">
-                                <IconBtn icon="bx-heart" color="white" class="me-1" />
-                                <span class="text-subtitle-2 text-white me-4">{{ data.likes }}</span>
+                                <IconBtn icon="bx-heart" color="#97a2ac" class="me-1" />
+                                <span class="text-subtitle-2 me-4">{{ data.likes }}</span>
 
-                                <IconBtn icon="bx-share-alt" color="white" class="me-1" />
-                                <span class="text-subtitle-2 text-white">{{ data.share }}</span>
+                                <IconBtn icon="bx-share-alt" color="#97a2ac" class="me-1" />
+                                <span class="text-subtitle-2 ">{{ data.share }}</span>
                             </div>
                         </VCardText>
                     </VCard>
                     <div class="d-flex align-center action-pub">
-                        <IconBtn icon="bx-heart" color="white" class="me-1" />
-                        <span class="text-subtitle-2 text-white me-4">{{ data.likes }}</span>
-                        <IconBtn @click="isCardDetailsVisible = !isCardDetailsVisible" icon="bx-comment" color="white"
+                        <IconBtn icon="bx-heart" color="#97a2ac" class="me-1" />
+                        <span class="text-subtitle-2 me-4">{{ data.likes }}</span>
+                        <IconBtn @click="isCardDetailsVisible = !isCardDetailsVisible" icon="bx-comment" color="#97a2ac"
                             class="me-1" />
-                        <span class="text-subtitle-2 text-white me-4">55</span>
-                        <IconBtn icon="bx-share-alt" color="white" class="me-1" />
-                        <span class="text-subtitle-2 text-white">{{ data.share }}</span>
+                        <span class="text-subtitle-2  me-4">55</span>
+                        <IconBtn icon="bx-share-alt" color="#97a2ac" class="me-1" />
+                        <span class="text-subtitle-2 ">{{ data.share }}</span>
                     </div>
                     <VExpandTransition>
                         <div v-show="isCardDetailsVisible">
@@ -322,7 +323,7 @@
                 <VCardText class="d-flex justify-space-between align-center flex-wrap">
                     <div class="text-no-wrap">
                         <VAvatar size="34" :image="data.avatarImg" />
-                        <span class="text-white ms-2 avatar-name">{{ data.avatarName }} a publiez dans un groupe
+                        <span class=" ms-2 avatar-name">{{ data.avatarName }} a publiez dans un groupe
                             GASIKARATSIKA</span>
                     </div>
                 </VCardText>
@@ -332,20 +333,20 @@
                         <VCardText class="d-flex justify-space-between align-center flex-wrap">
                             <div class="text-no-wrap">
                                 <VAvatar size="34" :image="data.avatarImg" />
-                                <span class="text-white ms-2 avatar-name">{{ data.avatarName }} > GASIKARATSIKA</span>
+                                <span class=" ms-2 avatar-name">{{ data.avatarName }} > GASIKARATSIKA</span>
                             </div>
                         </VCardText>
 
                         <VCardText>
-                            <p class="clamp-text text-white mb-0 textedescription">
+                            <p class="clamp-text  mb-0 textedescription">
                                 {{ data.text }}
                             </p>
                             <div class="d-flex align-center action-pub">
-                                <IconBtn icon="bx-heart" color="white" class="me-1" />
-                                <span class="text-subtitle-2 text-white me-4">{{ data.likes }}</span>
+                                <IconBtn icon="bx-heart" color="#97a2ac" class="me-1" />
+                                <span class="text-subtitle-2 me-4">{{ data.likes }}</span>
 
-                                <IconBtn icon="bx-share-alt" color="white" class="me-1" />
-                                <span class="text-subtitle-2 text-white">{{ data.share }}</span>
+                                <IconBtn icon="bx-share-alt" color="#97a2ac" class="me-1" />
+                                <span class="text-subtitle-2">{{ data.share }}</span>
                             </div>
                         </VCardText>
                     </VCard>
@@ -357,7 +358,7 @@
                 <VCardText class="d-flex justify-space-between align-center flex-wrap">
                     <div class="text-no-wrap">
                         <VAvatar size="34" :image="data.avatarImg" />
-                        <span class="text-white ms-2 avatar-name">{{ data.avatarName }} a partage une photo de
+                        <span class=" ms-2 avatar-name">{{ data.avatarName }} a partage une photo de
                             John Doe</span>
                     </div>
                 </VCardText>
@@ -376,7 +377,7 @@
                                     <VCardText class="d-flex justify-space-between align-center flex-wrap">
                                         <div class="text-no-wrap">
                                             <VAvatar size="34" :image="solidCardData[0].avatarImg" />
-                                            <span class="text-white ms-2 avatar-name">{{ solidCardData[0].avatarName }} a
+                                            <span class=" ms-2 avatar-name">{{ solidCardData[0].avatarName }} a
                                                 partage
                                                 une photo</span>
                                         </div>
@@ -384,31 +385,31 @@
                                 </VCardItem>
 
                                 <VCardText>
-                                    <p class="clamp-text text-white mb-0 textedescription">
+                                    <p class="clamp-text mb-0 textedescription">
                                         Lorem ipsum dolor sit amet consectetur adipisicing elit. Iusto, debitis.
                                     </p>
                                 </VCardText>
 
                                 <VCardActions class="justify-space-between">
                                     <div class="d-flex align-center action-pub">
-                                        <IconBtn icon="bx-heart" color="white" class="me-1" />
-                                        <span class="text-subtitle-2 text-white me-4">1.5K</span>
+                                        <IconBtn icon="bx-heart" color="#97a2ac" class="me-1" />
+                                        <span class="text-subtitle-2 me-4">1.5K</span>
 
-                                        <IconBtn icon="bx-share-alt" color="white" class="me-1" />
-                                        <span class="text-subtitle-2 text-white">600</span>
+                                        <IconBtn icon="bx-share-alt" color="#97a2ac" class="me-1" />
+                                        <span class="text-subtitle-2 ">600</span>
                                     </div>
                                 </VCardActions>
                             </div>
                         </div>
                     </VCard>
                     <div class="d-flex align-center action-pub">
-                        <IconBtn icon="bx-heart" color="white" class="me-1" />
-                        <span class="text-subtitle-2 text-white me-4">{{ data.likes }}</span>
-                        <IconBtn @click="isCardDetailsVisible = !isCardDetailsVisible" icon="bx-comment" color="white"
+                        <IconBtn icon="bx-heart" color="#97a2ac" class="me-1" />
+                        <span class="text-subtitle-2  me-4">{{ data.likes }}</span>
+                        <IconBtn @click="isCardDetailsVisible = !isCardDetailsVisible" icon="bx-comment" color="#97a2ac"
                             class="me-1" />
-                        <span class="text-subtitle-2 text-white me-4">55</span>
-                        <IconBtn icon="bx-share-alt" color="white" class="me-1" />
-                        <span class="text-subtitle-2 text-white">{{ data.share }}</span>
+                        <span class="text-subtitle-2  me-4">55</span>
+                        <IconBtn icon="bx-share-alt" color="#97a2ac" class="me-1" />
+                        <span class="text-subtitle-2">{{ data.share }}</span>
                     </div>
                     <VExpandTransition>
                         <div v-show="isCardDetailsVisible">
@@ -464,20 +465,20 @@
                         <VCardText class="d-flex justify-space-between align-center flex-wrap">
                             <div class="text-no-wrap">
                                 <VAvatar size="34" :image="data.avatarImg" />
-                                <span class="text-white ms-2 avatar-name">{{ data.avatarName }}</span>
+                                <span class=" ms-2 avatar-name">{{ data.avatarName }}</span>
                             </div>
                         </VCardText>
 
                         <VCardText>
-                            <p class="clamp-text text-white mb-0 textedescription">
+                            <p class="clamp-text  mb-0 textedescription">
                                 {{ data.text }}
                             </p>
                             <div class="d-flex align-center action-pub">
-                                <IconBtn icon="bx-heart" color="white" class="me-1" />
-                                <span class="text-subtitle-2 text-white me-4">{{ data.likes }}</span>
+                                <IconBtn icon="bx-heart" color="#97a2ac" class="me-1" />
+                                <span class="text-subtitle-2  me-4">{{ data.likes }}</span>
 
-                                <IconBtn icon="bx-share-alt" color="white" class="me-1" />
-                                <span class="text-subtitle-2 text-white">{{ data.share }}</span>
+                                <IconBtn icon="bx-share-alt" color="#97a2ac" class="me-1" />
+                                <span class="text-subtitle-2 ">{{ data.share }}</span>
                             </div>
                         </VCardText>
                     </VCard>
@@ -768,14 +769,17 @@ span.font-weight-medium.mutual-friends {
     background-color: #232333 !important;
 }
 
+.v-card.v-theme--light.v-card--density-default.v-card--variant-elevated.mt-3.pub-share {
+    background-color: #f5f5f9 !important;
+}
+
+
 // publication user
-span.text-white.ms-2.avatar-name {
+span.ms-2.avatar-name {
     font-size: 11px;
 }
 
-.v-card.v-theme--dark.v-card--density-default.v-card--variant-elevated.pub-status {
-    background-color: #2b2c40 !important;
-}
+
 
 .d-flex.align-center.action-pub {
     margin-top: 8px;
@@ -808,15 +812,37 @@ button.v-btn.v-btn--elevated.v-theme--light.bg-primary.v-btn--density-default.v-
     // background: none;
 }
 
-.v-overlay__scrim {
+.v-overlay.v-overlay--active.v-theme--light.v-locale--is-ltr.v-dialog.v-dialog--scrollable .v-overlay__scrim {
     pointer-events: auto;
     background: rgb(var(--v-theme-on-surface));
     border-radius: inherit;
     bottom: 0;
     left: 0;
-    opacity: 0.3 !important;
+    opacity: 0.2 !important;
     position: fixed;
     right: 0;
     top: 0;
+}
+
+.v-card.v-theme--light.pub-status span.ms-2.avatar-name {
+    color: #8e9aa5;
+}
+
+.v-card.v-theme--light.v-card--density-default.v-card--variant-elevated.pub-status {
+    background-color: #fff !important;
+}
+
+.v-card.v-theme--dark.v-card--density-default.v-card--variant-elevated.pub-status {
+    background-color: #2b2c40 !important;
+}
+
+.v-card.v-theme--light.pub-media span.ms-2.avatar-name {
+    color: #8e9aa5;
+}
+
+
+
+.v-card.v-theme--light.v-card--density-default.v-card--variant-elevated.pub-media {
+    background-color: #fff !important;
 }
 </style>
