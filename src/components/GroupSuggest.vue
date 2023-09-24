@@ -1,6 +1,9 @@
 <script lang="ts" setup>
 import avatar2 from '@images/avatars/avatar-2.png';
 import pages2 from '@images/pages/2.png';
+import { ref } from 'vue';
+const dialogm1 = ref('');
+const dialog = ref(false);
 </script>
 
 <template>
@@ -24,7 +27,35 @@ import pages2 from '@images/pages/2.png';
 
             <!--  Mutual Friends -->
             <div class="d-flex justify-space-between align-center">
-                <span class="font-weight-medium mutual-friends">+8 Membres</span>
+                <span class="font-weight-medium mutual-friends">
+                    <v-dialog v-model="dialog" scrollable width="auto" :overlay-opacity="0.1">
+                        <template v-slot:activator="{ props }">
+                            <span v-bind="props">+8 membres</span>
+                        </template>
+                        <v-card class="modal-friends">
+                            <v-card-title>Select Country</v-card-title>
+                            <v-divider></v-divider>
+                            <v-card-text style="height: 300px;">
+                                <v-radio-group v-model="dialogm1" column>
+                                    <v-radio label="Bahamas, The" value="bahamas"></v-radio>
+                                    <v-radio label="Bahrain" value="bahrain"></v-radio>
+                                    <v-radio label="Bangladesh" value="bangladesh"></v-radio>
+                                    <v-radio label="Barbados" value="barbados"></v-radio>
+                                    <v-radio label="Belarus" value="belarus"></v-radio>
+                                </v-radio-group>
+                            </v-card-text>
+                            <v-divider></v-divider>
+                            <v-card-actions>
+                                <v-btn color="blue-darken-1" variant="text" @click="dialog = false">
+                                    Close
+                                </v-btn>
+                                <v-btn color="blue-darken-1" variant="text" @click="dialog = false">
+                                    Save
+                                </v-btn>
+                            </v-card-actions>
+                        </v-card>
+                    </v-dialog>
+                </span>
 
                 <div class="v-avatar-group avatar-commun">
                     <VAvatar class="one-avatar" :image="avatar2" size="40" />

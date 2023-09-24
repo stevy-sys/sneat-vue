@@ -24,9 +24,9 @@
         </VCol>
     </VRow>
 
-    <h1 class="mt-10">Actualite</h1>
     <VRow>
         <VCol cols="12" md="6" lg="8">
+            <h1>Actualite</h1>
             <!-- status -->
             <VCard class="pub-status">
                 <HeaderPub type="statut" :avatar="avatar1" :moreList="moreList" />
@@ -70,7 +70,6 @@
                     <div class="ma-auto pa-5">
                         <VImg width="250" height="176" :src="eCommerce2" />
                     </div>
-
                 </div>
             </VCard>
 
@@ -173,7 +172,7 @@
         </VCol>
 
         <VCol cols="12" md="6" lg="4">
-            <h1 class="mt-10">Post Trends</h1>
+            <h1>Post Trends</h1>
             <VRow>
                 <VCol v-for=" data  in  solidCardData2 " :key="data.icon" cols="12" md="6" lg="12">
                     <VCard class="pub-status">
@@ -191,16 +190,7 @@
             </VRow>
             <h1 class="mt-10">Group suggestion</h1>
             <VRow>
-                <VCol cols="12" md="6" lg="6">
-                    <GroupSuggest />
-                </VCol>
-                <VCol cols="12" md="6" lg="6">
-                    <GroupSuggest />
-                </VCol>
-                <VCol cols="12" md="6" lg="6">
-                    <GroupSuggest />
-                </VCol>
-                <VCol cols="12" md="6" lg="6">
+                <VCol v-for="groupe in data" cols="12" md="6" lg="6">
                     <GroupSuggest />
                 </VCol>
             </VRow>

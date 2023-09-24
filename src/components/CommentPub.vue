@@ -22,7 +22,13 @@
                         {{ item.comment }}
                     </div>
                 </div>
+                <div class="v-list-item__footer" data-no-activator="">
+                    <a class="mr-2" href="#">jaime </a>
+                    <a class="mr-2" href="#">modifer</a>
+                    <a class="mr-2" href="#">suprimer</a>
+                </div>
             </div>
+
         </div>
         <div class="text-center btn-charger">
             <a v-if="!loading" @click="chargeComms(true)" class="href">voir suivant</a>
