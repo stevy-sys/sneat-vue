@@ -18,7 +18,7 @@ const dialog = ref(false)
             <div class="d-flex justify-space-between flex-wrap pt-12">
                 <div class="me-2 mb-2">
                     <VCardTitle class="pa-0 name-suggest">
-                        Robert Meyer
+                        <RouterLink to="/profile">Robert Meyer</RouterLink>
                     </VCardTitle>
                     <VCardSubtitle class="text-caption pa-0 profession-suggest">
                         London, UK
@@ -32,7 +32,7 @@ const dialog = ref(false)
                 <span class="font-weight-medium mutual-friends">
                     <v-dialog v-model="dialog" scrollable width="auto" :overlay-opacity="0.1">
                         <template v-slot:activator="{ props }">
-                            <span v-bind="props">8 amis en commun</span>
+                            <span v-bind="props" style="cursor: pointer;">8 amis en commun</span>
                         </template>
                         <v-card class="modal-friends">
                             <v-card-title>Select Country</v-card-title>
@@ -60,9 +60,15 @@ const dialog = ref(false)
                 </span>
 
                 <div class="v-avatar-group avatar-commun">
-                    <VAvatar class="one-avatar" :image="avatar2" size="40" />
-                    <VAvatar class="one-avatar" :image="avatar2" size="40" />
-                    <VAvatar class="one-avatar" :image="avatar2" size="40" />
+                    <RouterLink to="/profile">
+                        <VAvatar class="one-avatar" :image="avatar2" size="30" />
+                    </RouterLink>
+                    <RouterLink to="/profile">
+                        <VAvatar class="one-avatar" :image="avatar2" size="30" />
+                    </RouterLink>
+                    <RouterLink to="/profile">
+                        <VAvatar class="one-avatar" :image="avatar2" size="30" />
+                    </RouterLink>
                 </div>
             </div>
         </VCardText>

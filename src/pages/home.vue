@@ -33,7 +33,7 @@
 
                 <VCardText>
                     <p class="clamp-text mb-0 textedescription">
-                        Lorem ipsum dolor sit amet.
+                        <RouterLink to="publication" class="text-publication">Lorem ipsum dolor sit amet.</RouterLink>
                     </p>
                     <ActionPub @emmitShowComment="(value) => { isCardDetailsVisible = value }"
                         :isCardDetailsVisible="isCardDetailsVisible" />
@@ -54,7 +54,8 @@
 
                         <VCardText>
                             <p class="clamp-text mb-0 textedescription">
-                                Lorem ipsum dolor sit amet.
+                                <RouterLink to="publication" class="text-publication">Lorem ipsum dolor sit amet.
+                                </RouterLink>
                             </p>
                             <ActionPub @emmitShowComment="(value) => { isCardDetailsVisible = value }"
                                 :isCardDetailsVisible="isCardDetailsVisible" />
@@ -379,5 +380,13 @@ button.v-btn.v-btn--elevated.v-theme--light.bg-primary.v-btn--density-default.v-
 
 .other-pub .v-chip-group .v-chip {
     margin: 0 !important;
+}
+
+.pub-status a.text-publication {
+    color: #a3a4b5;
+}
+
+.pub-media a.text-publication {
+    color: #a3a4b5 !important;
 }
 </style>

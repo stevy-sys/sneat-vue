@@ -122,6 +122,11 @@ const moreList = [
                                     {{ item.comment }}
                                 </div>
                             </div>
+                            <div class="v-list-item__footer" data-no-activator="">
+                                <a class="mr-2 jaime-comms" href="#">jaime </a>
+                                <a class="mr-2 modif-comms" href="#">modifer</a>
+                                <a class="mr-2 delete-comms" href="#">suprimer</a>
+                            </div>
                         </div>
                     </div>
                     <div class="text-center btn-charger">

@@ -5,7 +5,7 @@
             <v-progress-circular v-if="loading" :loading="loading" indeterminate color="primary"></v-progress-circular>
         </div>
         <div v-for=" item  in  items "
-            class="v-list-item v-list-item--density-default v-list-item--two-line v-list-item--variant-text">
+            class="v-list-item v-list-item--density-default v-list-item--two-line v-list-item--variant-text list-coms">
             <div class="v-list-item__prepend">
                 <div class="v-avatar v-avatar--density-default v-avatar--size-default v-avatar--variant-flat">
                     <div class="v-responsive v-img" aria-label="">
@@ -16,16 +16,18 @@
                 </div>
             </div>
             <div class="v-list-item__content" data-no-activator="">
-                <div class="v-list-item-title">{{ item.user }}</div>
+                <div class="v-list-item-title">
+                    <RouterLink class="link-user" to="/profile">{{ item.user }}</RouterLink>
+                </div>
                 <div class="v-list-item-subtitle">
                     <div data-v-f940dfa7="">
                         {{ item.comment }}
                     </div>
                 </div>
                 <div class="v-list-item__footer" data-no-activator="">
-                    <a class="mr-2" href="#">jaime </a>
-                    <a class="mr-2" href="#">modifer</a>
-                    <a class="mr-2" href="#">suprimer</a>
+                    <a class="mr-2 jaime-comms" href="#">jaime </a>
+                    <a class="mr-2 modif-comms" href="#">modifer</a>
+                    <a class="mr-2 delete-comms" href="#">suprimer</a>
                 </div>
             </div>
 
@@ -76,5 +78,9 @@ const chargeComms = (value) => {
 .form-coms-component button.v-btn.v-btn--elevated.v-theme--light.bg-primary.v-btn--density-default.v-btn--size-default.v-btn--variant-elevated.submit-coms {
     border-radius: 36px;
     margin: 10px;
+}
+
+.v-list-item__footer {
+    font-size: 10px;
 }
 </style>

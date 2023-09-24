@@ -16,7 +16,7 @@ const dialog = ref(false);
             <div class="d-flex justify-space-between flex-wrap">
                 <div class="me-2 mb-2">
                     <VCardTitle class="pa-0 name-groupe-suggest">
-                        Robert Meyer
+                        <RouterLink to="/groupe">Robert Meyer</RouterLink>
                     </VCardTitle>
                     <VCardSubtitle class="text-caption pa-0 description-groupe">
                         London, UK
@@ -58,9 +58,15 @@ const dialog = ref(false);
                 </span>
 
                 <div class="v-avatar-group avatar-commun">
-                    <VAvatar class="one-avatar" :image="avatar2" size="40" />
-                    <VAvatar class="one-avatar" :image="avatar2" size="40" />
-                    <VAvatar class="one-avatar" :image="avatar2" size="40" />
+                    <RouterLink to="/profile">
+                        <VAvatar class="one-avatar" :image="avatar2" size="30" />
+                    </RouterLink>
+                    <RouterLink to="/profile">
+                        <VAvatar class="one-avatar" :image="avatar2" size="30" />
+                    </RouterLink>
+                    <RouterLink to="/profile">
+                        <VAvatar class="one-avatar" :image="avatar2" size="30" />
+                    </RouterLink>
                 </div>
             </div>
         </VCardText>

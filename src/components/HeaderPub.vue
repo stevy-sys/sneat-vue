@@ -18,7 +18,11 @@ defineProps({
 <template>
     <VCardItem class="pb-3 ">
         <VCardTitle class="mb-1 header-cart">
-            <VAvatar size="34" :image="avatar" />
+            <div>
+                <RouterLink to="/profile">
+                    <VAvatar size="34" :image="avatar" />
+                </RouterLink>
+            </div>
             <div class="descript">
                 <div>
                     <PublicationDescription :actionType="type" />
