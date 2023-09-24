@@ -10,7 +10,6 @@ const props = defineProps({
 const text = ref('')
 
 const getType = () => {
-    console.log(props.actionType)
     switch (props.actionType) {
         case 'statut':
             text.value = 'John Doe a actualise un statut'

@@ -1,9 +1,7 @@
 <template>
     <h1>Suggestion amis</h1>
     <VRow>
-        <VCol v-for="item in  data " cols="2" lg="2" md="4" sm="12" xs="12">
-            <FriendSuggest />
-        </VCol>
+        <FriendSuggest />
     </VRow>
 
     <VRow class="mt-10">
@@ -258,6 +256,10 @@ const solidCardData = [
         share: '80',
     },
 ]
+
+const addComment = () => {
+
+}
 
 const solidCardData2 = [
     {

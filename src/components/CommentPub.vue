@@ -57,6 +57,10 @@ defineProps({
     }
 })
 
+const addComment = () => {
+
+}
+
 const chargeComms = (value) => {
     emit('EmitChargeComms', value)
 }

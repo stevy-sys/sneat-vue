@@ -3,10 +3,6 @@ import avatar2 from '@images/avatars/avatar-2.png';
 
 const emit = defineEmits(['emmitShowComment'])
 defineProps({
-    data: {
-        type: Object,
-        required: true,
-    },
     isCardDetailsVisible: {
         type: Boolean
     }

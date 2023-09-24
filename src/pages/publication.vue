@@ -5,6 +5,10 @@ const chargeComms = (val) => {
     loading.value = !loading.value
     setTimeout(() => (loading.value = !loading.value), 2000)
 }
+
+const addComment = () => {
+
+}
 const items = [
     {
         img: 'https://cdn.vuetifyjs.com/images/lists/1.jpg',
