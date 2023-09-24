@@ -26,79 +26,22 @@
 
     <h1 class="mt-10">Actualite</h1>
     <VRow>
-        <!-- status -->
         <VCol cols="12" md="6" lg="8">
-            <VCard class="pub-status" style="" v-for=" data  in  solidCardData " :key="data.icon" :color="data.cardBg">
-
-                <VCardItem class="pb-3 ">
-                    <VCardTitle class="mb-1">
-                        <VAvatar size="34" :image="data.avatarImg" />
-                        <span class="ms-2 avatar-name">{{ data.avatarName }} a actualiser une statut</span>
-                    </VCardTitle>
-
-                    <template #append>
-                        <div class="me-n3 mt-n8">
-                            <MoreBtn :menu-list="moreList" />
-                        </div>
-                    </template>
-                </VCardItem>
+            <!-- status -->
+            <VCard class="pub-status">
+                <HeaderPub type="statut" :avatar="avatar1" :moreList="moreList" />
 
                 <VCardText>
                     <p class="clamp-text mb-0 textedescription">
-                        {{ data.text }}
+                        Lorem ipsum dolor sit amet.
                     </p>
-                    <div class="d-flex align-center action-pub">
-                        <IconBtn icon="bx-heart" color="#97a2ac" class="me-1" />
-                        <span class="text-subtitle-2  me-4">{{ data.likes }}</span>
-                        <IconBtn @click="isCardDetailsVisible = !isCardDetailsVisible" icon="bx-comment" color="#97a2ac"
-                            class="me-1" />
-                        <span class="text-subtitle-2 me-4">{{ data.likes }}</span>
-                        <IconBtn icon="bx-share-alt" color="#97a2ac" class="me-1" />
-                        <span class="text-subtitle-2 ">{{ data.share }}</span>
-                    </div>
+                    <ActionPub @emmitShowComment="(value) => { isCardDetailsVisible = value }"
+                        :isCardDetailsVisible="isCardDetailsVisible" />
                 </VCardText>
 
                 <VExpandTransition>
-                    <div v-show="isCardDetailsVisible">
-                        <v-list>
-                            <div class="text-center btn-charger">
-                                <a v-if="!loading" @click="chargeComms(true)" class="href">voir precedent</a>
-                                <v-progress-circular v-if="loading" :loading="loading" indeterminate
-                                    color="primary"></v-progress-circular>
-                            </div>
-                            <div v-for=" item  in  items "
-                                class="v-list-item v-list-item--density-default v-list-item--two-line v-list-item--variant-text">
-                                <div class="v-list-item__prepend">
-                                    <div
-                                        class="v-avatar v-avatar--density-default v-avatar--size-default v-avatar--variant-flat">
-                                        <div class="v-responsive v-img" aria-label="">
-                                            <div class="v-responsive__sizer" style="padding-bottom: 100%;"></div>
-                                            <img class="v-img__img v-img__img--cover" :src="item.img" alt="" style="">
-                                        </div>
-                                        <span class="v-avatar__underlay"></span>
-                                    </div>
-                                </div>
-                                <div class="v-list-item__content" data-no-activator="">
-                                    <div class="v-list-item-title">{{ item.user }}</div>
-                                    <div class="v-list-item-subtitle">
-                                        <div data-v-f940dfa7="">
-                                            {{ item.comment }}
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="text-center btn-charger">
-                                <a v-if="!loading" @click="chargeComms(true)" class="href">voir suivant</a>
-                                <v-progress-circular v-if="loading" :loading="loading" indeterminate
-                                    color="primary"></v-progress-circular>
-                            </div>
-                            <v-container>
-                                <v-form class="form-coms" @submit.prevent="addComment">
-                                    <VTextField class="input-coms" label="Commentaire" required></VTextField>
-                                    <v-btn class="submit-coms" type="submit" color="primary">Envoyer</v-btn>
-                                </v-form>
-                            </v-container>
-                        </v-list>
+                    <div class="form-coms-component" v-show="isCardDetailsVisible">
+                        <CommentPub @EmitChargeComms="chargeComms" :loading="loading" :items="items" />
                     </div>
                 </VExpandTransition>
             </VCard>
@@ -106,78 +49,20 @@
             <!-- media publication -->
             <VCard class="mt-3 pub-media">
                 <div class="d-flex justify-space-between flex-wrap flex-md-nowrap flex-column flex-md-row">
-
                     <div>
-                        <VCardItem>
-                            <VCardText class="d-flex justify-space-between align-center flex-wrap">
-                                <div class="text-no-wrap">
-                                    <VAvatar size="34" :image="solidCardData[0].avatarImg" />
-                                    <span class=" ms-2 avatar-name">{{ solidCardData[0].avatarName }} a partage
-                                        une photo</span>
-                                </div>
-                            </VCardText>
-                        </VCardItem>
+                        <HeaderPub type="statutMedia" :avatar="avatar1" :moreList="moreList" />
 
                         <VCardText>
-                            <p class="clamp-text  mb-0 textedescription">
-                                Lorem ipsum dolor sit amet consectetur adipisicing elit. Iusto, debitis.
+                            <p class="clamp-text mb-0 textedescription">
+                                Lorem ipsum dolor sit amet.
                             </p>
+                            <ActionPub @emmitShowComment="(value) => { isCardDetailsVisible = value }"
+                                :isCardDetailsVisible="isCardDetailsVisible" />
                         </VCardText>
 
-                        <VCardActions class="justify-space-between">
-                            <div class="d-flex align-center action-pub">
-                                <IconBtn icon="bx-heart" color="#97a2ac" class="me-1" />
-                                <span class="text-subtitle-2  me-4">1.5K</span>
-                                <IconBtn @click="isCardDetailsVisible = !isCardDetailsVisible" icon="bx-comment"
-                                    color="#97a2ac" class="me-1" />
-                                <span class="text-subtitle-2  me-4">55</span>
-                                <IconBtn icon="bx-share-alt" color="#97a2ac" class="me-1" />
-                                <span class="text-subtitle-2 ">600</span>
-                            </div>
-                        </VCardActions>
-
                         <VExpandTransition>
-                            <div v-show="isCardDetailsVisible">
-                                <v-list>
-                                    <div class="text-center btn-charger">
-                                        <a v-if="!loading" @click="chargeComms(true)" class="href">voir precedent</a>
-                                        <v-progress-circular v-if="loading" :loading="loading" indeterminate
-                                            color="primary"></v-progress-circular>
-                                    </div>
-                                    <div v-for=" item  in  items "
-                                        class="v-list-item v-list-item--density-default v-list-item--two-line v-list-item--variant-text">
-                                        <div class="v-list-item__prepend">
-                                            <div
-                                                class="v-avatar v-avatar--density-default v-avatar--size-default v-avatar--variant-flat">
-                                                <div class="v-responsive v-img" aria-label="">
-                                                    <div class="v-responsive__sizer" style="padding-bottom: 100%;"></div>
-                                                    <img class="v-img__img v-img__img--cover" :src="item.img" alt=""
-                                                        style="">
-                                                </div>
-                                                <span class="v-avatar__underlay"></span>
-                                            </div>
-                                        </div>
-                                        <div class="v-list-item__content" data-no-activator="">
-                                            <div class="v-list-item-title">{{ item.user }}</div>
-                                            <div class="v-list-item-subtitle">
-                                                <div data-v-f940dfa7="">
-                                                    {{ item.comment }}
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="text-center btn-charger">
-                                        <a v-if="!loading" @click="chargeComms(true)" class="href">voir suivant</a>
-                                        <v-progress-circular v-if="loading" :loading="loading" indeterminate
-                                            color="primary"></v-progress-circular>
-                                    </div>
-                                    <v-container>
-                                        <v-form class="form-coms" @submit.prevent="addComment">
-                                            <VTextField class="input-coms" label="Commentaire" required></VTextField>
-                                            <v-btn class="submit-coms" type="submit" color="primary">Envoyer</v-btn>
-                                        </v-form>
-                                    </v-container>
-                                </v-list>
+                            <div class="form-coms-component" v-show="isCardDetailsVisible">
+                                <CommentPub @EmitChargeComms="chargeComms" :loading="loading" :items="items" />
                             </div>
                         </VExpandTransition>
                     </div>
@@ -190,229 +75,100 @@
             </VCard>
 
             <!-- share une status -->
-            <VCard class="mt-3 pub-status " v-for=" data  in  solidCardData " :key="data.icon" :color="data.cardBg">
-                <VCardText class="d-flex justify-space-between align-center flex-wrap">
-                    <div class="text-no-wrap">
-                        <VAvatar size="34" :image="data.avatarImg" />
-                        <span class="ms-2 avatar-name">{{ data.avatarName }} a partage une publication de
-                            John Doe</span>
-                    </div>
-                </VCardText>
-
+            <VCard class="mt-3 pub-status ">
+                <HeaderPub type="shareStatut" :avatar="avatar1" :moreList="moreList" />
                 <VCardText>
-                    <VCard class="mt-3 pub-share" v-for=" data  in  solidCardData " :key="data.icon" :color="data.cardBg">
-                        <VCardText class="d-flex justify-space-between align-center flex-wrap">
-                            <div class="text-no-wrap">
-                                <VAvatar size="34" :image="data.avatarImg" />
-                                <span class=" ms-2 avatar-name">{{ data.avatarName }}</span>
-                            </div>
-                        </VCardText>
+                    <p class="clamp-text mb-3 textedescription">
+                        Lorem ipsum dolor sit amet.
+                    </p>
+                    <VCard class="pub-share">
+                        <HeaderPub type="shareStatut" :avatar="avatar1" :moreList="moreList" />
 
                         <VCardText>
-                            <p class="clamp-text  mb-0 textedescription">
-                                {{ data.text }}
+                            <p class="clamp-text mb-0 textedescription">
+                                Lorem ipsum dolor sit amet.
                             </p>
-                            <div class="d-flex align-center action-pub">
-                                <IconBtn icon="bx-heart" color="#97a2ac" class="me-1" />
-                                <span class="text-subtitle-2 me-4">{{ data.likes }}</span>
-
-                                <IconBtn icon="bx-share-alt" color="#97a2ac" class="me-1" />
-                                <span class="text-subtitle-2 ">{{ data.share }}</span>
-                            </div>
                         </VCardText>
                     </VCard>
-                    <div class="d-flex align-center action-pub">
-                        <IconBtn icon="bx-heart" color="#97a2ac" class="me-1" />
-                        <span class="text-subtitle-2 me-4">{{ data.likes }}</span>
-                        <IconBtn @click="isCardDetailsVisible = !isCardDetailsVisible" icon="bx-comment" color="#97a2ac"
-                            class="me-1" />
-                        <span class="text-subtitle-2  me-4">55</span>
-                        <IconBtn icon="bx-share-alt" color="#97a2ac" class="me-1" />
-                        <span class="text-subtitle-2 ">{{ data.share }}</span>
-                    </div>
-                    <VExpandTransition>
-                        <div v-show="isCardDetailsVisible">
-                            <v-list>
-                                <div class="text-center btn-charger">
-                                    <a v-if="!loading" @click="chargeComms(true)" class="href">voir precedent</a>
-                                    <v-progress-circular v-if="loading" :loading="loading" indeterminate
-                                        color="primary"></v-progress-circular>
-                                </div>
-                                <div v-for=" item  in  items "
-                                    class="v-list-item v-list-item--density-default v-list-item--two-line v-list-item--variant-text">
-                                    <div class="v-list-item__prepend">
-                                        <div
-                                            class="v-avatar v-avatar--density-default v-avatar--size-default v-avatar--variant-flat">
-                                            <div class="v-responsive v-img" aria-label="">
-                                                <div class="v-responsive__sizer" style="padding-bottom: 100%;"></div>
-                                                <img class="v-img__img v-img__img--cover" :src="item.img" alt="" style="">
-                                            </div>
-                                            <span class="v-avatar__underlay"></span>
-                                        </div>
-                                    </div>
-                                    <div class="v-list-item__content" data-no-activator="">
-                                        <div class="v-list-item-title">{{ item.user }}</div>
-                                        <div class="v-list-item-subtitle">
-                                            <div data-v-f940dfa7="">
-                                                {{ item.comment }}
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="text-center btn-charger">
-                                    <a v-if="!loading" @click="chargeComms(true)" class="href">voir suivant</a>
-                                    <v-progress-circular v-if="loading" :loading="loading" indeterminate
-                                        color="primary"></v-progress-circular>
-                                </div>
-                                <v-container>
-                                    <v-form class="form-coms" @submit.prevent="addComment">
-                                        <VTextField class="input-coms" label="Commentaire" required></VTextField>
-                                        <v-btn class="submit-coms" type="submit" color="primary">Envoyer</v-btn>
-                                    </v-form>
-                                </v-container>
-                            </v-list>
-                        </div>
-                    </VExpandTransition>
+                    <ActionPub @emmitShowComment="(value) => { isCardDetailsVisible = value }"
+                        :isCardDetailsVisible="isCardDetailsVisible" />
                 </VCardText>
+
+                <VExpandTransition>
+                    <div class="form-coms-component" v-show="isCardDetailsVisible">
+                        <CommentPub @EmitChargeComms="chargeComms" :loading="loading" :items="items" />
+                    </div>
+                </VExpandTransition>
             </VCard>
 
             <!-- publication dans une groupe a partir de actualite -->
-            <VCard class="mt-3 pub-status" v-for=" data  in  solidCardData " :key="data.icon" :color="data.cardBg">
-                <VCardText class="d-flex justify-space-between align-center flex-wrap">
-                    <div class="text-no-wrap">
-                        <VAvatar size="34" :image="data.avatarImg" />
-                        <span class=" ms-2 avatar-name">{{ data.avatarName }} a publiez dans un groupe
-                            GASIKARATSIKA</span>
-                    </div>
-                </VCardText>
-
+            <VCard class="mt-3 pub-status ">
+                <HeaderPub type="statut" :avatar="avatar1" :moreList="moreList" />
                 <VCardText>
-                    <VCard class="mt-3 pub-share" v-for=" data  in  solidCardData " :key="data.icon" :color="data.cardBg">
-                        <VCardText class="d-flex justify-space-between align-center flex-wrap">
-                            <div class="text-no-wrap">
-                                <VAvatar size="34" :image="data.avatarImg" />
-                                <span class=" ms-2 avatar-name">{{ data.avatarName }} > GASIKARATSIKA</span>
-                            </div>
-                        </VCardText>
+                    <p class="clamp-text mb-3 textedescription">
+                        Lorem ipsum dolor sit amet.
+                    </p>
+                    <VCard class="pub-share">
+                        <HeaderPub type="sharePubGroupe" :avatar="avatar1" :moreList="moreList" />
 
                         <VCardText>
-                            <p class="clamp-text  mb-0 textedescription">
-                                {{ data.text }}
+                            <p class="clamp-text mb-0 textedescription">
+                                Lorem ipsum dolor sit amet.
                             </p>
-                            <div class="d-flex align-center action-pub">
-                                <IconBtn icon="bx-heart" color="#97a2ac" class="me-1" />
-                                <span class="text-subtitle-2 me-4">{{ data.likes }}</span>
-
-                                <IconBtn icon="bx-share-alt" color="#97a2ac" class="me-1" />
-                                <span class="text-subtitle-2">{{ data.share }}</span>
-                            </div>
                         </VCardText>
                     </VCard>
+                    <ActionPub @emmitShowComment="(value) => { isCardDetailsVisible = value }"
+                        :isCardDetailsVisible="isCardDetailsVisible" />
                 </VCardText>
+
+                <VExpandTransition>
+                    <div class="form-coms-component" v-show="isCardDetailsVisible">
+                        <CommentPub @EmitChargeComms="chargeComms" :loading="loading" :items="items" />
+                    </div>
+                </VExpandTransition>
             </VCard>
 
             <!-- share une status with media  -->
-            <VCard class="mt-3 pub-status" v-for=" data  in  solidCardData " :key="data.icon" :color="data.cardBg">
-                <VCardText class="d-flex justify-space-between align-center flex-wrap">
-                    <div class="text-no-wrap">
-                        <VAvatar size="34" :image="data.avatarImg" />
-                        <span class=" ms-2 avatar-name">{{ data.avatarName }} a partage une photo de
-                            John Doe</span>
-                    </div>
-                </VCardText>
-
+            <VCard class="mt-3 pub-status ">
+                <HeaderPub type="shareStatuMedia" :avatar="avatar1" :moreList="moreList" />
                 <VCardText>
-                    <VCard class="mt-3 pub-share">
+                    <p class="clamp-text mb-3 textedescription">
+                        Lorem ipsum dolor sit amet.
+                    </p>
+                    <VCard class="pub-share">
                         <div class="d-flex justify-space-between flex-wrap flex-md-nowrap flex-column flex-md-row">
-                            <div class="ma-auto pa-5">
-                                <VImg width="250" height="176" :src="eCommerce2" />
-                            </div>
-
-                            <VDivider :vertical="$vuetify.display.mdAndUp" />
-
                             <div>
-                                <VCardItem>
-                                    <VCardText class="d-flex justify-space-between align-center flex-wrap">
-                                        <div class="text-no-wrap">
-                                            <VAvatar size="34" :image="solidCardData[0].avatarImg" />
-                                            <span class=" ms-2 avatar-name">{{ solidCardData[0].avatarName }} a
-                                                partage
-                                                une photo</span>
-                                        </div>
-                                    </VCardText>
-                                </VCardItem>
+                                <HeaderPub type="shareStatuMedia" :avatar="avatar1" :moreList="moreList" />
 
                                 <VCardText>
                                     <p class="clamp-text mb-0 textedescription">
-                                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Iusto, debitis.
+                                        Lorem ipsum dolor sit amet.
                                     </p>
+                                    <!-- <ActionPub @emmitShowComment="(value) => { isCardDetailsVisible = value }"
+                                        :isCardDetailsVisible="isCardDetailsVisible" /> -->
                                 </VCardText>
 
-                                <VCardActions class="justify-space-between">
-                                    <div class="d-flex align-center action-pub">
-                                        <IconBtn icon="bx-heart" color="#97a2ac" class="me-1" />
-                                        <span class="text-subtitle-2 me-4">1.5K</span>
-
-                                        <IconBtn icon="bx-share-alt" color="#97a2ac" class="me-1" />
-                                        <span class="text-subtitle-2 ">600</span>
+                                <VExpandTransition>
+                                    <div class="form-coms-component" v-show="isCardDetailsVisible">
+                                        <CommentPub @EmitChargeComms="chargeComms" :loading="loading" :items="items" />
                                     </div>
-                                </VCardActions>
+                                </VExpandTransition>
+                            </div>
+                            <VDivider :vertical="$vuetify.display.mdAndUp" />
+                            <div class="ma-auto pa-5">
+                                <VImg width="250" height="176" :src="eCommerce2" />
                             </div>
                         </div>
                     </VCard>
-                    <div class="d-flex align-center action-pub">
-                        <IconBtn icon="bx-heart" color="#97a2ac" class="me-1" />
-                        <span class="text-subtitle-2  me-4">{{ data.likes }}</span>
-                        <IconBtn @click="isCardDetailsVisible = !isCardDetailsVisible" icon="bx-comment" color="#97a2ac"
-                            class="me-1" />
-                        <span class="text-subtitle-2  me-4">55</span>
-                        <IconBtn icon="bx-share-alt" color="#97a2ac" class="me-1" />
-                        <span class="text-subtitle-2">{{ data.share }}</span>
-                    </div>
-                    <VExpandTransition>
-                        <div v-show="isCardDetailsVisible">
-                            <v-list>
-                                <div class="text-center btn-charger">
-                                    <a v-if="!loading" @click="chargeComms(true)" class="href">voir precedent</a>
-                                    <v-progress-circular v-if="loading" :loading="loading" indeterminate
-                                        color="primary"></v-progress-circular>
-                                </div>
-                                <div v-for=" item  in  items "
-                                    class="v-list-item v-list-item--density-default v-list-item--two-line v-list-item--variant-text">
-                                    <div class="v-list-item__prepend">
-                                        <div
-                                            class="v-avatar v-avatar--density-default v-avatar--size-default v-avatar--variant-flat">
-                                            <div class="v-responsive v-img" aria-label="">
-                                                <div class="v-responsive__sizer" style="padding-bottom: 100%;"></div>
-                                                <img class="v-img__img v-img__img--cover" :src="item.img" alt="" style="">
-                                            </div>
-                                            <span class="v-avatar__underlay"></span>
-                                        </div>
-                                    </div>
-                                    <div class="v-list-item__content" data-no-activator="">
-                                        <div class="v-list-item-title">{{ item.user }}</div>
-                                        <div class="v-list-item-subtitle">
-                                            <div data-v-f940dfa7="">
-                                                {{ item.comment }}
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="text-center btn-charger">
-                                    <a v-if="!loading" @click="chargeComms(true)" class="href">voir suivant</a>
-                                    <v-progress-circular v-if="loading" :loading="loading" indeterminate
-                                        color="primary"></v-progress-circular>
-                                </div>
-                                <v-container>
-                                    <v-form class="form-coms" @submit.prevent="addComment">
-                                        <VTextField class="input-coms" label="Commentaire" required></VTextField>
-                                        <v-btn class="submit-coms" type="submit" color="primary">Envoyer</v-btn>
-                                    </v-form>
-                                </v-container>
-                            </v-list>
-                        </div>
-                    </VExpandTransition>
+                    <ActionPub @emmitShowComment="(value) => { isCardDetailsVisible = value }"
+                        :isCardDetailsVisible="isCardDetailsVisible" />
                 </VCardText>
+
+                <VExpandTransition>
+                    <div class="form-coms-component" v-show="isCardDetailsVisible">
+                        <CommentPub @EmitChargeComms="chargeComms" :loading="loading" :items="items" />
+                    </div>
+                </VExpandTransition>
             </VCard>
         </VCol>
 
@@ -420,25 +176,15 @@
             <h1 class="mt-10">Post Trends</h1>
             <VRow>
                 <VCol v-for=" data  in  solidCardData2 " :key="data.icon" cols="12" md="6" lg="12">
-                    <VCard class="pub-status" :color="data.cardBg">
-                        <VCardText class="d-flex justify-space-between align-center flex-wrap">
-                            <div class="text-no-wrap">
-                                <VAvatar size="34" :image="data.avatarImg" />
-                                <span class=" ms-2 avatar-name">{{ data.avatarName }}</span>
-                            </div>
-                        </VCardText>
+                    <VCard class="pub-status">
+                        <HeaderPub type="statut" :avatar="avatar1" :moreList="moreList" />
 
                         <VCardText>
-                            <p class="clamp-text  mb-0 textedescription">
-                                {{ data.text }}
+                            <p class="clamp-text mb-0 textedescription">
+                                Lorem ipsum dolor sit amet.
                             </p>
-                            <div class="d-flex align-center action-pub">
-                                <IconBtn icon="bx-heart" color="#97a2ac" class="me-1" />
-                                <span class="text-subtitle-2  me-4">{{ data.likes }}</span>
-
-                                <IconBtn icon="bx-share-alt" color="#97a2ac" class="me-1" />
-                                <span class="text-subtitle-2 ">{{ data.share }}</span>
-                            </div>
+                            <ActionPub @emmitShowComment="(value) => { isCardDetailsVisible = value }"
+                                :isCardDetailsVisible="isCardDetailsVisible" />
                         </VCardText>
                     </VCard>
                 </VCol>
@@ -464,6 +210,9 @@
 <script setup>
 import FriendSuggest from '@/components/FriendSuggest.vue'
 import GroupSuggest from '@/components/GroupSuggest.vue'
+import HeaderPub from '@/components/HeaderPub.vue'
+import CommentPub from '@/components/CommentPub.vue'
+import ActionPub from '@/components/ActionPub.vue'
 import avatar1 from '@images/avatars/avatar-1.png';
 import eCommerce2 from '@images/eCommerce/2.png'
 const isCardDetailsVisible = ref(false)
@@ -543,7 +292,7 @@ const solidCardData2 = [
 ]
 
 </script>
-<style lang="scss" scoped>
+<style lang="scss">
 .member-pricing-bg {
     position: relative;
     background-color: rgba(var(--v-theme-on-surface), var(--v-hover-opacity));
@@ -556,11 +305,11 @@ const solidCardData2 = [
 }
 
 //pub statut share
-.v-card.v-theme--dark.v-card--density-default.v-card--variant-elevated.mt-3.pub-share {
+.v-card.v-theme--dark.v-card--density-default.v-card--variant-elevated.mt-3.pub-status .pub-share {
     background-color: #232333 !important;
 }
 
-.v-card.v-theme--light.v-card--density-default.v-card--variant-elevated.mt-3.pub-share {
+.v-card.v-theme--light.v-card--density-default.v-card--variant-elevated.mt-3.pub-status .pub-share {
     background-color: #f5f5f9 !important;
 }
 
@@ -614,6 +363,10 @@ button.v-btn.v-btn--elevated.v-theme--light.bg-primary.v-btn--density-default.v-
     color: #8e9aa5;
 }
 
+.v-card.v-theme--light.pub-media span.ms-2.avatar-name {
+    color: #8e9aa5;
+}
+
 .v-card.v-theme--light.v-card--density-default.v-card--variant-elevated.pub-status {
     background-color: #fff !important;
 }
@@ -622,9 +375,7 @@ button.v-btn.v-btn--elevated.v-theme--light.bg-primary.v-btn--density-default.v-
     background-color: #2b2c40 !important;
 }
 
-.v-card.v-theme--light.pub-media span.ms-2.avatar-name {
-    color: #8e9aa5;
-}
+
 
 .v-card.v-theme--light.v-card--density-default.v-card--variant-elevated.pub-media {
     background-color: #fff !important;
