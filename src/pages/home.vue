@@ -173,25 +173,34 @@
         <VCol cols="12" md="6" lg="4">
             <h1>Post Trends</h1>
             <VRow>
-                <VCol v-for=" data  in  solidCardData2 " :key="data.icon" cols="12" md="6" lg="12">
-                    <VCard class="pub-status">
-                        <HeaderPub type="statut" :avatar="avatar1" :moreList="moreList" />
+                <v-virtual-scroll :height="300" :items="['1']">
+                    <template v-slot:default="{ item }">
+                        <VCol v-for=" data  in  solidCardData2 " :key="data.icon" cols="12" md="6" lg="12">
+                            <VCard class="pub-status">
+                                <HeaderPub type="statut" :avatar="avatar1" :moreList="moreList" />
 
-                        <VCardText>
-                            <p class="clamp-text mb-0 textedescription">
-                                Lorem ipsum dolor sit amet.
-                            </p>
-                            <ActionPub @emmitShowComment="(value) => { isCardDetailsVisible = value }"
-                                :isCardDetailsVisible="isCardDetailsVisible" />
-                        </VCardText>
-                    </VCard>
-                </VCol>
+                                <VCardText>
+                                    <p class="clamp-text mb-0 textedescription">
+                                        Lorem ipsum dolor sit amet.
+                                    </p>
+                                    <ActionPub @emmitShowComment="(value) => { isCardDetailsVisible = value }"
+                                        :isCardDetailsVisible="isCardDetailsVisible" />
+                                </VCardText>
+                            </VCard>
+                        </VCol>
+                    </template>
+                </v-virtual-scroll>
             </VRow>
             <h1 class="mt-10">Group suggestion</h1>
-            <VRow>
-                <VCol v-for="groupe in data" cols="12" md="6" lg="6">
-                    <GroupSuggest />
-                </VCol>
+            <VRow class="group-suggest">
+                <v-virtual-scroll width="100%" :height="300" :items="['1']">
+                    <template v-slot:default="{ item }">
+                        <VCol v-for="groupe in data" cols="12" md="6" lg="5">
+                            <GroupSuggest />
+                        </VCol>
+                    </template>
+                </v-virtual-scroll>
+
             </VRow>
         </VCol>
     </VRow>
@@ -388,5 +397,14 @@ button.v-btn.v-btn--elevated.v-theme--light.bg-primary.v-btn--density-default.v-
 
 .pub-media a.text-publication {
     color: #a3a4b5 !important;
+}
+
+
+//virtual 
+
+.group-suggest .v-virtual-scroll__item {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
 }
 </style>
