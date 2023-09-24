@@ -26,8 +26,18 @@
                 </div>
                 <div class="v-list-item__footer" data-no-activator="">
                     <a class="mr-2 jaime-comms" href="#">jaime </a>
-                    <a class="mr-2 modif-comms" href="#">modifer</a>
-                    <a class="mr-2 delete-comms" href="#">suprimer</a>
+                    <v-dialog v-model="dialog" scrollable width="auto" :overlay-opacity="0.1">
+                        <template v-slot:activator="{ props }">
+                            <span v-bind="props" style="cursor: pointer;" class="mr-2 modif-comms">modifer</span>
+                        </template>
+                        <ContentUpdateCommentaire />
+                    </v-dialog>
+                    <v-dialog v-model="dialog2" scrollable width="auto" :overlay-opacity="0.1">
+                        <template v-slot:activator="{ props }">
+                            <span v-bind="props" style="cursor: pointer;" class="mr-2 modif-comms">suprimer</span>
+                        </template>
+                        <ContentDeleteCommentaire />
+                    </v-dialog>
                 </div>
             </div>
 
@@ -46,7 +56,13 @@
 </template>
 
 <script setup>
+import ContentUpdateCommentaire from './Modal/ContentUpdateCommentaire.vue';
+import ContentDeleteCommentaire from './Modal/ContentDeleteCommentaire.vue';
+
 const emit = defineEmits(['EmitChargeComms'])
+const dialogm1 = ref('');
+const dialog = ref(false);
+const dialog2 = ref(false);
 defineProps({
     items: {
         type: Array,

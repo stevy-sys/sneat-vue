@@ -207,8 +207,6 @@ import eCommerce2 from '@images/eCommerce/2.png'
 const isCardDetailsVisible = ref(false)
 const loading = ref(false)
 
-const dialogm1 = ref('')
-const dialog = ref(false)
 
 const chargeComms = (val) => {
     loading.value = !loading.value

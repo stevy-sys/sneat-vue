@@ -1,6 +1,7 @@
 <script setup>
 import avatar1 from '@images/avatars/avatar-1.png';
 import avatar2 from '@images/avatars/avatar-2.png';
+import ModalFriendsCommun from '@/components/Modal/ModalFriendsCommun.vue'
 import pages2 from '@images/pages/2.png';
 const dialogm1 = ref('')
 const dialog = ref(false)
@@ -31,33 +32,7 @@ const dialog = ref(false)
                 <!--  Mutual Friends -->
                 <div class="d-flex justify-space-between align-center">
                     <span class="font-weight-medium mutual-friends">
-                        <v-dialog v-model="dialog" scrollable width="auto" :overlay-opacity="0.1">
-                            <template v-slot:activator="{ props }">
-                                <span v-bind="props" style="cursor: pointer;">8 amis en commun</span>
-                            </template>
-                            <v-card class="modal-friends">
-                                <v-card-title>Select Country</v-card-title>
-                                <v-divider></v-divider>
-                                <v-card-text style="height: 300px;">
-                                    <v-radio-group v-model="dialogm1" column>
-                                        <v-radio label="Bahamas, The" value="bahamas"></v-radio>
-                                        <v-radio label="Bahrain" value="bahrain"></v-radio>
-                                        <v-radio label="Bangladesh" value="bangladesh"></v-radio>
-                                        <v-radio label="Barbados" value="barbados"></v-radio>
-                                        <v-radio label="Belarus" value="belarus"></v-radio>
-                                    </v-radio-group>
-                                </v-card-text>
-                                <v-divider></v-divider>
-                                <v-card-actions>
-                                    <v-btn color="blue-darken-1" variant="text" @click="dialog = false">
-                                        Close
-                                    </v-btn>
-                                    <v-btn color="blue-darken-1" variant="text" @click="dialog = false">
-                                        Save
-                                    </v-btn>
-                                </v-card-actions>
-                            </v-card>
-                        </v-dialog>
+                        <ModalFriendsCommun />
                     </span>
 
                     <div class="v-avatar-group avatar-commun">
