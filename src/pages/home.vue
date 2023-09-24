@@ -1,7 +1,22 @@
 <template>
     <h1>Suggestion amis</h1>
-    <VRow>
-        <FriendSuggest />
+    <VRow class="friend-suggest-virtual">
+        <v-virtual-scroll height="auto" :items="['1']">
+            <template v-slot:default="{ item }">
+                <FriendSuggest />
+                <FriendSuggest />
+                <FriendSuggest />
+                <FriendSuggest />
+                <FriendSuggest />
+                <FriendSuggest />
+                <FriendSuggest />
+                <FriendSuggest />
+                <FriendSuggest />
+                <FriendSuggest />
+                <FriendSuggest />
+                <FriendSuggest />
+            </template>
+        </v-virtual-scroll>
     </VRow>
 
     <VRow class="mt-10">
@@ -172,7 +187,7 @@
 
         <VCol cols="12" md="6" lg="4">
             <h1>Post Trends</h1>
-            <VRow>
+            <VRow class="post-trends-virtual">
                 <v-virtual-scroll :height="300" :items="['1']">
                     <template v-slot:default="{ item }">
                         <VCol v-for=" data  in  solidCardData2 " :key="data.icon" cols="12" md="6" lg="12">
@@ -193,9 +208,9 @@
             </VRow>
             <h1 class="mt-10">Group suggestion</h1>
             <VRow class="group-suggest">
-                <v-virtual-scroll width="100%" :height="300" :items="['1']">
+                <v-virtual-scroll width="100%" :height="400" :items="['1']">
                     <template v-slot:default="{ item }">
-                        <VCol v-for="groupe in data" cols="12" md="6" lg="5">
+                        <VCol v-for="groupe in data" cols="12" md="6" lg="6">
                             <GroupSuggest />
                         </VCol>
                     </template>
@@ -406,5 +421,9 @@ button.v-btn.v-btn--elevated.v-theme--light.bg-primary.v-btn--density-default.v-
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
+}
+
+.friend-suggest-virtual .v-virtual-scroll__item {
+    display: flex;
 }
 </style>
