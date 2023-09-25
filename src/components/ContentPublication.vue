@@ -58,7 +58,7 @@ const chargeComms = (val) => {
 
         <VCardText>
             <p class="clamp-text mb-0 textedescription">
-                <RouterLink v-if="!isLoading" to="publication" class="text-publication">Lorem ipsum dolor sit
+                <RouterLink v-if="!isLoading" to="/publication" class="text-publication">Lorem ipsum dolor sit
                     amet.
                 </RouterLink>
                 <VSkeletonLoader class="skeleton-text-publication" v-if="isLoading" max-width="500" type="text"

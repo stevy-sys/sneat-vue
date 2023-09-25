@@ -32,9 +32,9 @@ const moreList = [
                 <HeaderPub :type="type" :avatar="avatar1" :moreList="moreList" />
 
                 <VCardText>
-                    <p class="clamp-text mb-0 textedescription">
+                    <RouterLink to="/publication" class="text-publication">
                         Lorem ipsum dolor sit amet.
-                    </p>
+                    </RouterLink>
                 </VCardText>
             </div>
             <VDivider :vertical="$vuetify.display.mdAndUp" />

@@ -80,7 +80,7 @@
                     <template v-slot:default="{ item }">
                         <VCol v-for=" data  in  solidCardData2 " :key="data.icon" cols="12" md="6" lg="12">
                             <VCard class="pub-status">
-                                <ContentPublication type="statut" />
+                                <ContentPublication :isShare="false" type="statut" />
                             </VCard>
                         </VCol>
                     </template>

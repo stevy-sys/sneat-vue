@@ -17,6 +17,14 @@ defineProps({
         type: Array
     }
 })
+const isTooltipVisible = ref(false);
+
+const showTooltip = () => {
+    console.log('show')
+    isTooltipVisible.value = true;
+};
+
+
 </script>
 
 <template>
@@ -24,7 +32,7 @@ defineProps({
         <VCardTitle class="mb-1 header-cart">
             <div>
                 <RouterLink to="/profile">
-                    <VAvatar v-if="!isLoading" size="34" :image="avatar" />
+                    <VAvatar class="avatar-container" v-if="!isLoading" size="34" :image="avatar" />
                     <VAvatar v-if="isLoading" class="squeleton-avatar">
                         <VSkeletonLoader max-width="500" type="avatar" animation-speed="250" />
                     </VAvatar>
@@ -55,6 +63,12 @@ defineProps({
 </template>
 
 <style lang="scss" scoped>
+.tooltip-user {
+    padding: 0 !important;
+    margin: 0 !important;
+}
+
+
 .me-n3.mt-n8.more-btn-skeleton {
     margin-right: 0px !important;
 

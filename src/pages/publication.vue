@@ -74,7 +74,7 @@ const moreList = [
                     <VCardItem class="pb-3 ">
                         <VCardTitle class="mb-1">
                             <VAvatar size="34" :image="data.avatarImg" />
-                            <span class=" ms-2 avatar-name">{{ data.avatarName }} a avtualiser une statut</span>
+                            <span class=" ms-2 avatar-name">{{ data.avatarName }} a actualiser une statut</span>
                         </VCardTitle>
 
                         <template #append>

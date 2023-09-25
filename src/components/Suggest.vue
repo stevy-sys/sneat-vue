@@ -15,6 +15,7 @@ defineProps({
 })
 const dialogm1 = ref('')
 const dialog = ref(false)
+const snackbar = ref(false)
 </script>
 
 <template>
@@ -35,7 +36,16 @@ const dialog = ref(false)
                             <VSkeletonLoader v-if="isLoading" max-width="500" type="text" animation-speed="250" />
                         </VCardSubtitle>
                     </div>
-                    <VBtn v-if="!isLoading" class="send-request"> {{ type == 'friends' ? 'Ajouter' : 'Rejoindre' }}</VBtn>
+                    <VBtn @click="snackbar = true" v-if="!isLoading" class="send-request"> {{ type == 'friends' ?
+                        'Ajouter' : 'Rejoindre' }}</VBtn>
+                    <v-snackbar v-model="snackbar">
+                        Invitation envoyer a Jane Doe
+                        <template v-slot:actions>
+                            <v-btn color="pink" variant="text" @click="snackbar = false">
+                                Annuler
+                            </v-btn>
+                        </template>
+                    </v-snackbar>
                     <div class="skeleton-send-request" v-if="isLoading">
                         <VSkeletonLoader v-if="isLoading" max-width="500" type="text" animation-speed="250" />
                     </div>
@@ -53,12 +63,15 @@ const dialog = ref(false)
                     <div v-if="!isLoading" class="v-avatar-group avatar-commun">
                         <RouterLink to="/profile">
                             <VAvatar class="one-avatar" :image="avatar2" size="30" />
+                            <v-tooltip activator="parent" location="bottom">Tooltip</v-tooltip>
                         </RouterLink>
                         <RouterLink to="/profile">
                             <VAvatar class="one-avatar" :image="avatar2" size="30" />
+                            <v-tooltip activator="parent" location="bottom">Tooltip</v-tooltip>
                         </RouterLink>
                         <RouterLink to="/profile">
                             <VAvatar class="one-avatar" :image="avatar2" size="30" />
+                            <v-tooltip activator="parent" location="bottom">Tooltip</v-tooltip>
                         </RouterLink>
                     </div>
                     <div v-if="isLoading" class="v-avatar-group skeleton-avatar-commun">
