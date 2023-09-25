@@ -1,9 +1,13 @@
 <script setup>
 import { onMounted } from 'vue';
+import { VSkeletonLoader } from 'vuetify/lib/labs/components.mjs';
 
 const props = defineProps({
     actionType: {
         type: String,
+    },
+    isLoading: {
+        type: Boolean
     }
 })
 
@@ -38,8 +42,15 @@ onMounted(() => {
 </script>
 
 <template>
-    <span class="ms-2 avatar-name">{{ text }}</span>
+    <span v-if="!props.isLoading" class="ms-2 avatar-name">{{ text }}</span>
+    <span v-if="props.isLoading" class="ms-2 skeleton-descirption">
+        <VSkeletonLoader max-width="500" type="text" animation-speed="250" />
+    </span>
 </template>
 
-<style lang="scss">
+<style lang="scss" scoped>
+span.ms-2.skeleton-descirption {
+    width: 500% !important;
+    display: block;
+}
 </style>

@@ -1,10 +1,14 @@
 <script setup>
 import PublicationDescription from '@/components/PublicationDescription.vue'
+import { VSkeletonLoader } from 'vuetify/lib/labs/components.mjs';
 
 defineProps({
     avatar: {
         type: String,
         required: true,
+    },
+    isLoading: {
+        type: Boolean
     },
     type: {
         type: String,
@@ -20,26 +24,50 @@ defineProps({
         <VCardTitle class="mb-1 header-cart">
             <div>
                 <RouterLink to="/profile">
-                    <VAvatar size="34" :image="avatar" />
+                    <VAvatar v-if="!isLoading" size="34" :image="avatar" />
+                    <VAvatar v-if="isLoading" class="squeleton-avatar">
+                        <VSkeletonLoader max-width="500" type="avatar" animation-speed="250" />
+                    </VAvatar>
                 </RouterLink>
             </div>
             <div class="descript">
                 <div>
-                    <PublicationDescription :actionType="type" />
+                    <PublicationDescription :isLoading="isLoading" :actionType="type" />
                 </div>
-                <div class="timestamps">4m</div>
+                <div v-if="!isLoading" class="timestamps">4m</div>
+                <div v-if="isLoading" class="timestamps squeleton-timestamps">
+                    <VSkeletonLoader max-width="500" type="text" animation-speed="250" />
+                </div>
             </div>
         </VCardTitle>
 
         <template #append>
-            <div class="me-n3 mt-n8">
+            <div v-if="!isLoading" class="me-n3 mt-n8">
                 <MoreBtn :menu-list="moreList" />
+            </div>
+            <div v-if="isLoading" class="me-n3 mt-n8 more-btn-skeleton">
+                <button v-if="isLoading">
+                    <VSkeletonLoader max-width="500" type="text" animation-speed="250" />
+                </button>
             </div>
         </template>
     </VCardItem>
 </template>
 
 <style lang="scss" scoped>
+.me-n3.mt-n8.more-btn-skeleton {
+    margin-right: 0px !important;
+
+    button {
+        width: 320%;
+    }
+}
+
+.timestamps.squeleton-timestamps {
+    width: 190% !important;
+    margin: 0;
+}
+
 .v-card-title.mb-1.header-cart {
     display: flex;
     justify-content: flex-start;

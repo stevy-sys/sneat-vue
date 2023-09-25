@@ -3,18 +3,16 @@
     <VRow class="friend-suggest-virtual">
         <v-virtual-scroll height="auto" :items="['1']">
             <template v-slot:default="{ item }">
-                <FriendSuggest />
-                <FriendSuggest />
-                <FriendSuggest />
-                <FriendSuggest />
-                <FriendSuggest />
-                <FriendSuggest />
-                <FriendSuggest />
-                <FriendSuggest />
-                <FriendSuggest />
-                <FriendSuggest />
-                <FriendSuggest />
-                <FriendSuggest />
+                <FriendSuggest :isLoading="isLoading" />
+                <FriendSuggest :isLoading="isLoading" />
+                <FriendSuggest :isLoading="isLoading" />
+                <FriendSuggest :isLoading="isLoading" />
+                <FriendSuggest :isLoading="isLoading" />
+                <FriendSuggest :isLoading="isLoading" />
+                <FriendSuggest :isLoading="isLoading" />
+                <FriendSuggest :isLoading="isLoading" />
+                <FriendSuggest :isLoading="isLoading" />
+
             </template>
         </v-virtual-scroll>
     </VRow>
@@ -42,13 +40,16 @@
             <h1>Actualite</h1>
             <!-- status -->
             <VCard class="pub-status">
-                <HeaderPub type="statut" :avatar="avatar1" :moreList="moreList" />
+                <HeaderPub :isLoading="isLoading" type="statut" :avatar="avatar1" :moreList="moreList" />
 
                 <VCardText>
                     <p class="clamp-text mb-0 textedescription">
-                        <RouterLink to="publication" class="text-publication">Lorem ipsum dolor sit amet.</RouterLink>
+                        <RouterLink v-if="!isLoading" to="publication" class="text-publication">Lorem ipsum dolor sit amet.
+                        </RouterLink>
+                        <VSkeletonLoader class="skeleton-text-publication" v-if="isLoading" max-width="500" type="text"
+                            animation-speed="250" />
                     </p>
-                    <ActionPub @emmitShowComment="(value) => { isCardDetailsVisible = value }"
+                    <ActionPub :isLoading="isLoading" @emmitShowComment="(value) => { isCardDetailsVisible = value }"
                         :isCardDetailsVisible="isCardDetailsVisible" />
                 </VCardText>
 
@@ -58,6 +59,7 @@
                     </div>
                 </VExpandTransition>
             </VCard>
+
 
             <!-- media publication -->
             <VCard class="mt-3 pub-media">
@@ -161,11 +163,11 @@
                                         :isCardDetailsVisible="isCardDetailsVisible" /> -->
                                 </VCardText>
 
-                                <VExpandTransition>
+                                <!-- <VExpandTransition>
                                     <div class="form-coms-component" v-show="isCardDetailsVisible">
                                         <CommentPub @EmitChargeComms="chargeComms" :loading="loading" :items="items" />
                                     </div>
-                                </VExpandTransition>
+                                </VExpandTransition> -->
                             </div>
                             <VDivider :vertical="$vuetify.display.mdAndUp" />
                             <div class="ma-auto pa-5">
@@ -186,7 +188,7 @@
         </VCol>
 
         <VCol cols="12" md="6" lg="4">
-            <h1>Post Trends</h1>
+            <h1 class="mb-3">Post Trends</h1>
             <VRow class="post-trends-virtual">
                 <v-virtual-scroll :height="300" :items="['1']">
                     <template v-slot:default="{ item }">
@@ -206,7 +208,7 @@
                     </template>
                 </v-virtual-scroll>
             </VRow>
-            <h1 class="mt-10">Group suggestion</h1>
+            <h1 class="mb-3 mt-10">Group suggestion</h1>
             <VRow class="group-suggest">
                 <v-virtual-scroll width="100%" :height="400" :items="['1']">
                     <template v-slot:default="{ item }">
@@ -215,7 +217,6 @@
                         </VCol>
                     </template>
                 </v-virtual-scroll>
-
             </VRow>
         </VCol>
     </VRow>
@@ -228,9 +229,10 @@ import CommentPub from '@/components/CommentPub.vue'
 import ActionPub from '@/components/ActionPub.vue'
 import avatar1 from '@images/avatars/avatar-1.png';
 import eCommerce2 from '@images/eCommerce/2.png'
+import { VSkeletonLoader } from 'vuetify/lib/labs/components.mjs'
 const isCardDetailsVisible = ref(false)
-const loading = ref(false)
-
+// const loading = ref(false)
+const isLoading = ref(false)
 
 const chargeComms = (val) => {
     loading.value = !loading.value
@@ -425,5 +427,27 @@ button.v-btn.v-btn--elevated.v-theme--light.bg-primary.v-btn--density-default.v-
 
 .friend-suggest-virtual .v-virtual-scroll__item {
     display: flex;
+}
+
+
+
+
+//squeletton
+/* Exemple de styles CSS personnalisés */
+/* Exemple de styles CSS personnalisés pour le squelette */
+.custom-card-skeleton {
+    /* Styles pour la carte */
+}
+
+.custom-header-skeleton {
+    /* Styles pour l'en-tête */
+}
+
+.custom-card-text-skeleton {
+    /* Styles pour le texte de la carte */
+}
+
+.custom-action-skeleton {
+    /* Styles pour les actions */
 }
 </style>

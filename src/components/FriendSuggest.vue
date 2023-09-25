@@ -3,6 +3,13 @@ import avatar1 from '@images/avatars/avatar-1.png';
 import avatar2 from '@images/avatars/avatar-2.png';
 import ModalFriendsCommun from '@/components/Modal/ModalFriendsCommun.vue'
 import pages2 from '@images/pages/2.png';
+import { VSkeletonLoader } from 'vuetify/lib/labs/components.mjs';
+
+defineProps({
+    isLoading: {
+        type: Boolean
+    }
+})
 const dialogm1 = ref('')
 const dialog = ref(false)
 </script>
@@ -18,24 +25,32 @@ const dialog = ref(false)
 
                 <!-- Title, Subtitle & Action Button -->
                 <div class="d-flex justify-space-between flex-wrap pt-12">
-                    <div class="me-2 mb-2">
+                    <div :class="isLoading == true ? 'skeleton-name-suggest' : ''" class="me-2 mb-2">
                         <VCardTitle class="pa-0 name-suggest">
-                            <RouterLink to="/profile">Robert Meyer</RouterLink>
+                            <RouterLink to="/profile" v-if="!isLoading">Robert Meyer</RouterLink>
+                            <VSkeletonLoader v-if="isLoading" max-width="500" type="text" animation-speed="250" />
                         </VCardTitle>
                         <VCardSubtitle class="text-caption pa-0 profession-suggest">
-                            London, UK
+                            <span v-if="!isLoading">London, UK</span>
+                            <VSkeletonLoader v-if="isLoading" max-width="500" type="text" animation-speed="250" />
                         </VCardSubtitle>
                     </div>
-                    <VBtn class="send-request">Ajouter</VBtn>
+                    <VBtn v-if="!isLoading" class="send-request">Ajouter</VBtn>
+                    <div class="skeleton-send-request" v-if="isLoading">
+                        <VSkeletonLoader v-if="isLoading" max-width="500" type="text" animation-speed="250" />
+                    </div>
                 </div>
 
                 <!--  Mutual Friends -->
                 <div class="d-flex justify-space-between align-center">
-                    <span class="font-weight-medium mutual-friends">
-                        <ModalFriendsCommun />
+                    <span v-if="!isLoading" class="font-weight-medium mutual-friends">
+                        <ModalFriendsCommun :isLoading="isLoading" />
                     </span>
+                    <div v-if="isLoading" class="font-weight-medium skeleton-mutual-friends">
+                        <VSkeletonLoader max-width="500" type="text" animation-speed="250" />
+                    </div>
 
-                    <div class="v-avatar-group avatar-commun">
+                    <div v-if="!isLoading" class="v-avatar-group avatar-commun">
                         <RouterLink to="/profile">
                             <VAvatar class="one-avatar" :image="avatar2" size="30" />
                         </RouterLink>
@@ -45,6 +60,11 @@ const dialog = ref(false)
                         <RouterLink to="/profile">
                             <VAvatar class="one-avatar" :image="avatar2" size="30" />
                         </RouterLink>
+                    </div>
+                    <div v-if="isLoading" class="v-avatar-group skeleton-avatar-commun">
+                        <div class="width-skeleton">
+                            <VSkeletonLoader max-width="500" type="text" animation-speed="250" />
+                        </div>
                     </div>
                 </div>
             </VCardText>
@@ -53,6 +73,27 @@ const dialog = ref(false)
 </template>
 
 <style lang="scss" scoped>
+.skeleton-avatar-commun .width-skeleton {
+    width: 100% !important;
+}
+
+.v-avatar-group.skeleton-avatar-commun {
+    width: 45%;
+}
+
+//skeleton
+.font-weight-medium.skeleton-mutual-friends {
+    width: 70px;
+}
+
+.skeleton-name-suggest.me-2.mb-2 {
+    width: 63px;
+}
+
+.skeleton-send-request {
+    width: 65px;
+}
+
 .suggest .d-flex.align-center.action-pub {
     margin-top: 8px;
 }

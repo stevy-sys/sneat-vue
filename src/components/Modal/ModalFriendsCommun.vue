@@ -1,7 +1,11 @@
 <script lang="ts" setup>
 import { ref } from 'vue';
 import ContentFriendsCommun from '@/components/Modal/ContentFriendsCommun.vue'
-
+defineProps({
+    isLoading: {
+        type: Boolean
+    }
+})
 
 const dialogm1 = ref('');
 const dialog = ref(false);

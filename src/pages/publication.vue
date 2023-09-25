@@ -103,41 +103,47 @@ const moreList = [
             <VCol class="publication-show" cols="12" sm="5" xl="4"
                 :class="$vuetify.display.smAndUp ? 'border-e' : 'border-b'">
                 <v-list>
-                    <div class="text-center btn-charger">
+                    <!-- <div class="text-center btn-charger">
                         <a v-if="!loading" @click="chargeComms(true)" class="href">voir precedent</a>
                         <v-progress-circular v-if="loading" :loading="loading" indeterminate
                             color="primary"></v-progress-circular>
-                    </div>
-                    <div v-for=" item  in  items "
-                        class="v-list-item v-list-item--density-default v-list-item--two-line v-list-item--variant-text">
-                        <div class="v-list-item__prepend">
-                            <div class="v-avatar v-avatar--density-default v-avatar--size-default v-avatar--variant-flat">
-                                <div class="v-responsive v-img" aria-label="">
-                                    <div class="v-responsive__sizer" style="padding-bottom: 100%;"></div>
-                                    <img class="v-img__img v-img__img--cover" :src="item.img" alt="" style="">
+                    </div> -->
+                    <v-virtual-scroll width="100%" :height="400" :items="['1']">
+                        <template v-slot:default="{ item }">
+                            <div v-for=" item  in  items "
+                                class="v-list-item v-list-item--density-default v-list-item--two-line v-list-item--variant-text">
+                                <div class="v-list-item__prepend">
+                                    <div
+                                        class="v-avatar v-avatar--density-default v-avatar--size-default v-avatar--variant-flat">
+                                        <div class="v-responsive v-img" aria-label="">
+                                            <div class="v-responsive__sizer" style="padding-bottom: 100%;"></div>
+                                            <img class="v-img__img v-img__img--cover" :src="item.img" alt="" style="">
+                                        </div>
+                                        <span class="v-avatar__underlay"></span>
+                                    </div>
                                 </div>
-                                <span class="v-avatar__underlay"></span>
-                            </div>
-                        </div>
-                        <div class="v-list-item__content" data-no-activator="">
-                            <div class="v-list-item-title">{{ item.user }}</div>
-                            <div class="v-list-item-subtitle">
-                                <div data-v-f940dfa7="">
-                                    {{ item.comment }}
+                                <div class="v-list-item__content" data-no-activator="">
+                                    <div class="v-list-item-title">{{ item.user }}</div>
+                                    <div class="v-list-item-subtitle">
+                                        <div data-v-f940dfa7="">
+                                            {{ item.comment }}
+                                        </div>
+                                    </div>
+                                    <div class="v-list-item__footer" data-no-activator="">
+                                        <a class="mr-2 jaime-comms" href="#">jaime </a>
+                                        <a class="mr-2 modif-comms" href="#">modifer</a>
+                                        <a class="mr-2 delete-comms" href="#">suprimer</a>
+                                    </div>
                                 </div>
                             </div>
-                            <div class="v-list-item__footer" data-no-activator="">
-                                <a class="mr-2 jaime-comms" href="#">jaime </a>
-                                <a class="mr-2 modif-comms" href="#">modifer</a>
-                                <a class="mr-2 delete-comms" href="#">suprimer</a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="text-center btn-charger">
+                        </template>
+                    </v-virtual-scroll>
+
+                    <!-- <div class="text-center btn-charger">
                         <a v-if="!loading" @click="chargeComms(true)" class="href">voir suivant</a>
                         <v-progress-circular v-if="loading" :loading="loading" indeterminate
                             color="primary"></v-progress-circular>
-                    </div>
+                    </div> -->
                     <v-container>
                         <v-form class="form-coms" @submit.prevent="addComment">
                             <VTextField class="input-coms" label="Commentaire" required></VTextField>

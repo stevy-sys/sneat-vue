@@ -11,8 +11,7 @@ const chargeComms = (value) => {
         <v-card-title class="text-center">Suppresion de commentaire</v-card-title>
         <v-divider></v-divider>
         <span class="text-confirm">
-            Voulez vous supprimer le commentaire "Lorem ipsum dolor sit amet consectetur adipisicing elit. Magnam, officia."
-            ?
+            Voulez vous supprimer le commentaire ?
         </span>
         <v-divider></v-divider>
         <v-card-actions class="text-center">

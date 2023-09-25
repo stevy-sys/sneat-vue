@@ -11,3 +11,64 @@
 .v-overlay__content{
     // width: 50% !important;
 }
+
+
+// scroll bar
+/* Barre de défilement principale */
+::-webkit-scrollbar {
+    width: 6px;
+    /* Largeur de la barre de défilement */
+    background-color: transparent;
+    /* Couleur de fond de la barre de défilement */
+    border-radius: 3px;
+    /* Bordure arrondie de la barre de défilement */
+}
+
+/* Style de la poignée (thumb) de la barre de défilement */
+::-webkit-scrollbar-thumb {
+    background-color: #a3a4b5;
+    /* Couleur de la poignée */
+    border-radius: 3px;
+    /* Bordure arrondie de la poignée */
+}
+
+/* Style de la poignée (thumb) au survol */
+::-webkit-scrollbar-thumb:hover {
+    background-color: #a3a4b5;
+    /* Couleur de la poignée au survol */
+}
+
+/* Style de la piste (track) de la barre de défilement */
+::-webkit-scrollbar-track {
+    background-color: transparent;
+    /* Couleur de fond de la piste */
+}
+
+/* Style de la piste (track) au survol */
+::-webkit-scrollbar-track:hover {
+    background-color: transparent;
+    /* Couleur de fond de la piste au survol */
+}
+
+/* Masquer les boutons de défilement haut/bas */
+::-webkit-scrollbar-button {
+    display: none;
+}
+
+/* Activer la barre de défilement au survol de la zone de défilement */
+::-webkit-scrollbar-corner {
+    background-color: transparent;
+}
+
+/* Activer la barre de défilement au survol de la zone de défilement */
+::hover {
+    scrollbar-width: thin;
+    /* Largeur de la barre de défilement au survol */
+}
+
+
+.v-skeleton-loader__bone.v-skeleton-loader__text {
+    padding: 0;
+    margin-left: 15px;
+    margin: 5px;
+}
