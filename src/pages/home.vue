@@ -62,7 +62,7 @@
 
 
             <!-- media publication -->
-            <VCard class="mt-3 pub-media">
+            <VCard class="mt-3 pub-status">
                 <div class="d-flex justify-space-between flex-wrap flex-md-nowrap flex-column flex-md-row">
                     <div>
                         <HeaderPub type="statutMedia" :avatar="avatar1" :moreList="moreList" />
