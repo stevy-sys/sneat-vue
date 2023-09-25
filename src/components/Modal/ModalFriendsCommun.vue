@@ -4,6 +4,9 @@ import ContentFriendsCommun from '@/components/Modal/ContentFriendsCommun.vue'
 defineProps({
     isLoading: {
         type: Boolean
+    },
+    type: {
+        type: String
     }
 })
 
@@ -14,7 +17,8 @@ const dialog = ref(false);
 <template>
     <v-dialog v-model="dialog" scrollable width="auto" :overlay-opacity="0.1">
         <template v-slot:activator="{ props }">
-            <span v-bind="props" style="cursor: pointer;">8 amis en commun</span>
+            <span v-if="type == 'friends'" v-bind="props" style="cursor: pointer;">8 amis en commun</span>
+            <span v-if="type == 'groupe'" v-bind="props" style="cursor: pointer;">8 Membres</span>
         </template>
         <ContentFriendsCommun />
     </v-dialog>

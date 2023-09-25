@@ -8,6 +8,9 @@ import { VSkeletonLoader } from 'vuetify/lib/labs/components.mjs';
 defineProps({
     isLoading: {
         type: Boolean
+    },
+    type: {
+        type: String
     }
 })
 const dialogm1 = ref('')
@@ -20,11 +23,8 @@ const dialog = ref(false)
             <VImg :src="pages2" />
 
             <VCardText class="position-relative content">
-                <!-- User Avatar -->
-                <VAvatar size="75" class="avatar-center" :image="avatar1" />
-
-                <!-- Title, Subtitle & Action Button -->
-                <div class="d-flex justify-space-between flex-wrap pt-12">
+                <VAvatar v-if="type == 'friends'" size="75" class="avatar-center" :image="avatar1" />
+                <div class="d-flex justify-space-between flex-wrap" :class="type == 'friends' ? 'pt-12' : ''">
                     <div :class="isLoading == true ? 'skeleton-name-suggest' : ''" class="me-2 mb-2">
                         <VCardTitle class="pa-0 name-suggest">
                             <RouterLink to="/profile" v-if="!isLoading">Robert Meyer</RouterLink>
@@ -35,7 +35,7 @@ const dialog = ref(false)
                             <VSkeletonLoader v-if="isLoading" max-width="500" type="text" animation-speed="250" />
                         </VCardSubtitle>
                     </div>
-                    <VBtn v-if="!isLoading" class="send-request">Ajouter</VBtn>
+                    <VBtn v-if="!isLoading" class="send-request"> {{ type == 'friends' ? 'Ajouter' : 'Rejoindre' }}</VBtn>
                     <div class="skeleton-send-request" v-if="isLoading">
                         <VSkeletonLoader v-if="isLoading" max-width="500" type="text" animation-speed="250" />
                     </div>
@@ -44,7 +44,7 @@ const dialog = ref(false)
                 <!--  Mutual Friends -->
                 <div class="d-flex justify-space-between align-center">
                     <span v-if="!isLoading" class="font-weight-medium mutual-friends">
-                        <ModalFriendsCommun :isLoading="isLoading" />
+                        <ModalFriendsCommun :type="type" :isLoading="isLoading" />
                     </span>
                     <div v-if="isLoading" class="font-weight-medium skeleton-mutual-friends">
                         <VSkeletonLoader max-width="500" type="text" animation-speed="250" />
@@ -149,5 +149,13 @@ const dialog = ref(false)
 .suggest .v-card-title.pa-0.name-suggest {
     font-size: 9px;
     font-weight: 600;
+}
+
+.v-card.v-theme--light.v-card--density-default.v-card--variant-elevated.suggest {
+    width: 152px;
+}
+
+.v-card.v-theme--dark.v-card--density-default.v-card--variant-elevated.suggest {
+    width: 152px;
 }
 </style>

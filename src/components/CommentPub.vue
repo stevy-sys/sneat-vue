@@ -79,9 +79,11 @@ defineProps({
 })
 
 
+
 const currentPage = ref(1); // Numéro de page actuel
 const isLoading = ref(false); // Indicateur de chargement
 let scrollContainer = null; // Référence à l'élément de défilement
+let commentaires = ref([])
 
 const addComment = () => {
 
