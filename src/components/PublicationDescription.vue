@@ -53,4 +53,9 @@ span.ms-2.skeleton-descirption {
     width: 500% !important;
     display: block;
 }
+
+// publication user
+span.ms-2.avatar-name {
+    font-size: 11px;
+}
 </style>

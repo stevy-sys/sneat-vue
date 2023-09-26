@@ -79,5 +79,8 @@ const chargeComms = (val) => {
     </div>
 </template>
 
-<style lang="scss">
+<style lang="scss" scoped>
+.pub-status a.text-publication {
+    color: #a3a4b5;
+}
 </style>

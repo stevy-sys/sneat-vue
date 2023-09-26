@@ -45,72 +45,44 @@
 
                 <!-- tabs content -->
                 <VWindow v-model="navigationTab2">
-                    <VWindowItem v-for="item in tabItems" :key="item" :value="item" class="text-center">
+                    <VWindowItem v-for="item in tabItems" :key="item" :value="item">
                         <div v-if="item == 'Journal'">
-                            <VCard class="mt-3 pub-status" v-for="data in solidCardData" :key="data.icon"
-                                :color="data.cardBg">
-                                <VCardText class="d-flex justify-space-between align-center flex-wrap">
-                                    <div class="text-no-wrap">
-                                        <VAvatar size="34" :image="data.avatarImg" />
-                                        <span class=" ms-2 avatar-name">{{ data.avatarName }} a partage une photo
-                                            de
-                                            John Doe</span>
+
+                            <VCard class="m-10 pub-status">
+                                <div>
+                                    <ContentPublication :isShare="false" type="statut" />
+                                </div>
+                            </VCard>
+
+                            <VCard class="m-10 mt-3 pub-status">
+                                <div class="d-flex justify-space-between flex-wrap flex-md-nowrap flex-column flex-md-row">
+                                    <div>
+                                        <ContentPublication :isShare="false" type="statutMedia" />
                                     </div>
-                                </VCardText>
-
-                                <VCardText class="card-text-contenu">
-                                    <VCard class="mt-3 pub-share">
-                                        <div
-                                            class="d-flex justify-space-between flex-wrap flex-md-nowrap flex-column flex-md-row">
-                                            <div class="ma-auto pa-5">
-                                                <VImg width="250" height="176" :src="eCommerce2" />
-                                            </div>
-
-                                            <VDivider :vertical="$vuetify.display.mdAndUp" />
-
-                                            <div>
-                                                <VCardItem>
-                                                    <VCardText class="d-flex justify-space-between align-center flex-wrap">
-                                                        <div class="text-no-wrap">
-                                                            <VAvatar size="34" :image="solidCardData[0].avatarImg" />
-                                                            <span class=" ms-2 avatar-name">{{
-                                                                solidCardData[0].avatarName }} a
-                                                                partage
-                                                                une photo</span>
-                                                        </div>
-                                                    </VCardText>
-                                                </VCardItem>
-
-                                                <VCardText>
-                                                    <p class="clamp-text  mb-0 textedescription">
-                                                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Iusto,
-                                                        debitis.
-                                                    </p>
-                                                </VCardText>
-
-                                                <VCardActions class="justify-space-between">
-                                                    <div class="d-flex align-center action-pub">
-                                                        <IconBtn icon="bx-heart" color="" class="me-1" />
-                                                        <span class="text-subtitle-2  me-4">1.5K</span>
-
-                                                        <IconBtn icon="bx-share-alt" color="" class="me-1" />
-                                                        <span class="text-subtitle-2 ">600</span>
-                                                    </div>
-                                                </VCardActions>
-                                            </div>
-                                        </div>
-                                    </VCard>
-                                    <div class="d-flex align-center action-pub">
-                                        <IconBtn icon="bx-heart" color="#97a2ac" class="me-1" />
-                                        <span class="text-subtitle-2  me-4">{{ data.likes }}</span>
-
-                                        <IconBtn icon="bx-share-alt" color="#97a2ac" class="me-1" />
-                                        <span class="text-subtitle-2 ">{{ data.share }}</span>
+                                    <VDivider :vertical="$vuetify.display.mdAndUp" />
+                                    <div class="ma-auto pa-5">
+                                        <VImg width="250" height="176" :src="eCommerce2" />
                                     </div>
-                                </VCardText>
+                                </div>
+                            </VCard>
+                            <!-- share une status -->
+                            <VCard class="m-10 mt-3 pub-status ">
+                                <ContentPublication :isShare="true" type="shareStatut" />
+                            </VCard>
+
+                            <!-- publication dans une groupe a partir de actualite -->
+                            <VCard class="m-10 mt-3 pub-status ">
+                                <ContentPublication :isShare="true" type="sharePubGroupe" />
+                            </VCard>
+
+                            <!-- share une status with media  -->
+                            <VCard class="m-10 mt-3 pub-status ">
+                                <ContentPublication :isShare="true" type="shareStatuMedia" />
                             </VCard>
                         </div>
-                        <div v-if="item == 'Profile'">
+
+                        <div class="text-center" v-if="item == 'Profile'">
+
                             <VCol cols="12">
                                 <VCard title="Account Details">
                                     <VCardText>
@@ -199,7 +171,9 @@
                                 </VCard>
                             </VCol>
                         </div>
-                        <div v-if="item == 'Amis'">
+
+                        <div class="text-center" v-if="item == 'Amis'">
+
                             <VCol cols="12" lg="12" md="4" sm="6" order="3">
                                 <VCard>
                                     <VCardText>
@@ -226,7 +200,8 @@
                                 </VCard>
                             </VCol>
                         </div>
-                        <div v-if="item == 'Photo'">
+                        <div class="text-center" v-if="item == 'Photo'">
+
                             <VCol cols="12" lg="12" md="4" sm="6" order="3">
                                 <VCard>
                                     <VCardText>
@@ -292,6 +267,7 @@ import { useRoute } from 'vue-router'
 import AccountSettingsAccount from '@/views/pages/account-settings/AccountSettingsAccount.vue'
 import AccountSettingsNotification from '@/views/pages/account-settings/AccountSettingsNotification.vue'
 import AccountSettingsSecurity from '@/views/pages/account-settings/AccountSettingsSecurity.vue'
+import ContentPublication from '@/components/ContentPublication.vue';
 
 const route = useRoute()
 const activeTab = ref(route.params.tab)
@@ -564,5 +540,14 @@ const tabItems = [
     display: flex;
     justify-content: space-evenly;
     align-items: center;
+}
+
+//Journal
+.v-card.v-theme--dark.v-card--density-default.v-card--variant-elevated.m-10.pub-status {
+    margin: 30px;
+}
+
+.v-card.v-theme--light.v-card--density-default.v-card--variant-elevated.m-10.pub-status {
+    margin: 30px;
 }
 </style>

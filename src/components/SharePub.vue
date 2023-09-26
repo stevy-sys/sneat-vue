@@ -54,5 +54,12 @@ const moreList = [
     </VCard>
 </template>
 
-<style lang="scss">
+<style lang="scss" scoped>
+.v-card.v-theme--dark.v-card--density-default.v-card--variant-elevated.mt-3.pub-status .pub-share {
+    background-color: #232333 !important;
+}
+
+.v-card.v-theme--light.v-card--density-default.v-card--variant-elevated.mt-3.pub-status .pub-share {
+    background-color: #f5f5f9 !important;
+}
 </style>
