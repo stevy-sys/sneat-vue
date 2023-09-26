@@ -2,9 +2,10 @@
 import { VSkeletonLoader } from 'vuetify/lib/labs/components.mjs';
 import avatar1 from '@images/avatars/avatar-1.png';
 import ActionPub from './ActionPub.vue';
-import CommentPub from './CommentPub.vue';
+// import CommentPub from './CommentPub.vue';
 import HeaderPub from './HeaderPub.vue';
 import SharePub from './SharePub.vue';
+import ListComment from './ListComment.vue';
 
 const props = defineProps({
     type: {
@@ -37,24 +38,8 @@ const moreList = [
         value: 'Update',
     },
 ]
-const items = [
-    {
-        img: 'https://cdn.vuetifyjs.com/images/lists/1.jpg',
-        user: 'John Doe',
-        comment: ` I'll be in your neighborhood doing errands this weekend. Do you want to hang out?`,
-    },
-    {
-        img: 'https://cdn.vuetifyjs.com/images/lists/2.jpg',
-        user: 'Jane Doe',
-        comment: `Wish I could come, but I'm out of town this weekend.`,
-    }
-]
+
 const isLoading = ref(false)
-const loading = ref(false)
-const chargeComms = (val) => {
-    loading.value = !loading.value
-    setTimeout(() => (loading.value = !loading.value), 2000)
-}
 </script>
 
 <template>
@@ -78,9 +63,9 @@ const chargeComms = (val) => {
                 :isCardDetailsVisible="isCardDetailsVisible" />
         </VCardText>
 
-        <VExpandTransition>
+        <VExpandTransition v-if="showComms">
             <div class="form-coms-component" v-show="isCardDetailsVisible">
-                <CommentPub @EmitChargeComms="chargeComms" :loading="loading" :items="items" />
+                <ListComment />
             </div>
         </VExpandTransition>
     </div>

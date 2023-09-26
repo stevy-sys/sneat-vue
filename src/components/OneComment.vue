@@ -4,7 +4,7 @@ import ContentUpdateCommentaire from './Modal/ContentUpdateCommentaire.vue';
 
 defineProps({
     id: {
-        type: String,
+        type: Number,
         required: true,
     },
     img: {
