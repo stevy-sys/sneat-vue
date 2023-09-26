@@ -33,7 +33,7 @@ const moreList = [
 
                 <VCardText>
                     <RouterLink to="/publication" class="text-publication">
-                        Lorem ipsum dolor sit amet.
+                        Lorem ipsum dolor sit amet. cds
                     </RouterLink>
                 </VCardText>
             </div>

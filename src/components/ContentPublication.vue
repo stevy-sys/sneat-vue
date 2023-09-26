@@ -14,6 +14,11 @@ const props = defineProps({
     isShare: {
         type: Boolean,
         required: true,
+    },
+    showComms: {
+        type: Boolean,
+        required: true,
+        default: true
     }
 })
 
@@ -58,7 +63,8 @@ const chargeComms = (val) => {
 
         <VCardText>
             <p class="clamp-text mb-0 textedescription">
-                <RouterLink v-if="!isLoading" to="/publication" class="text-publication">Lorem ipsum dolor sit
+                <RouterLink v-if="!isLoading" to="/publication" class="text-publication">Lorem ipsum dolor sit amet,
+                    consectetur adipisicing elit. Impedit, porro.
                     amet.
                 </RouterLink>
                 <VSkeletonLoader class="skeleton-text-publication" v-if="isLoading" max-width="500" type="text"
@@ -67,7 +73,8 @@ const chargeComms = (val) => {
 
             <SharePub v-if="isShare" :type="type" />
 
-            <ActionPub :isLoading="isLoading" @emmitShowComment="(value) => { isCardDetailsVisible = value }"
+            <ActionPub v-if="showComms" :isLoading="isLoading"
+                @emmitShowComment="(value) => { isCardDetailsVisible = value }"
                 :isCardDetailsVisible="isCardDetailsVisible" />
         </VCardText>
 
