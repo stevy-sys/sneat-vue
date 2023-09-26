@@ -13,8 +13,7 @@ defineProps({
         type: String
     }
 })
-const dialogm1 = ref('')
-const dialog = ref(false)
+
 const snackbar = ref(false)
 </script>
 
@@ -28,7 +27,8 @@ const snackbar = ref(false)
                 <div class="d-flex justify-space-between flex-wrap" :class="type == 'friends' ? 'pt-12' : ''">
                     <div :class="isLoading == true ? 'skeleton-name-suggest' : ''" class="me-2 mb-2">
                         <VCardTitle class="pa-0 name-suggest">
-                            <RouterLink to="/profile" v-if="!isLoading">Robert Meyer</RouterLink>
+                            <RouterLink :to="type == 'friends' ? '/profile' : '/groupe'" v-if="!isLoading">Robert Meyer
+                            </RouterLink>
                             <VSkeletonLoader v-if="isLoading" max-width="500" type="text" animation-speed="250" />
                         </VCardTitle>
                         <VCardSubtitle class="text-caption pa-0 profession-suggest">
