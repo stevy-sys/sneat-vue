@@ -2,13 +2,20 @@
 import PublicationDescription from '@/components/PublicationDescription.vue'
 import { VSkeletonLoader } from 'vuetify/lib/labs/components.mjs';
 
-defineProps({
+const props = defineProps({
     avatar: {
+        type: String,
+        required: true,
+    },
+    actionType: {
         type: String,
         required: true,
     },
     isLoading: {
         type: Boolean
+    },
+    user: {
+        type: Object
     },
     type: {
         type: String,
@@ -32,29 +39,30 @@ const showTooltip = () => {
         <VCardTitle class="mb-1 header-cart">
             <div>
                 <RouterLink to="/profile">
-                    <VAvatar class="avatar-container" v-if="!isLoading" size="34" :image="avatar" />
-                    <VAvatar v-if="isLoading" class="squeleton-avatar">
+                    <VAvatar class="avatar-container" v-if="!props?.isLoading" size="34" :image="props?.avatar" />
+                    <VAvatar v-if="props?.isLoading" class="squeleton-avatar">
                         <VSkeletonLoader max-width="500" type="avatar" animation-speed="250" />
                     </VAvatar>
                 </RouterLink>
             </div>
             <div class="descript">
                 <div>
-                    <PublicationDescription :isLoading="isLoading" :actionType="type" />
+                    <PublicationDescription :actionType="props?.actionType" :user="props?.user"
+                        :isLoading="props?.isLoading" :type="props?.type" />
                 </div>
-                <div v-if="!isLoading" class="timestamps">4m</div>
-                <div v-if="isLoading" class="timestamps squeleton-timestamps">
+                <div v-if="!props?.isLoading" class="timestamps">4m</div>
+                <div v-if="props?.isLoading" class="timestamps squeleton-timestamps">
                     <VSkeletonLoader max-width="500" type="text" animation-speed="250" />
                 </div>
             </div>
         </VCardTitle>
 
         <template #append>
-            <div v-if="!isLoading" class="me-n3 mt-n8">
+            <div v-if="!props?.isLoading" class="me-n3 mt-n8">
                 <MoreBtn :menu-list="moreList" />
             </div>
-            <div v-if="isLoading" class="me-n3 mt-n8 more-btn-skeleton">
-                <button v-if="isLoading">
+            <div v-if="props?.isLoading" class="me-n3 mt-n8 more-btn-skeleton">
+                <button v-if="props?.isLoading">
                     <VSkeletonLoader max-width="500" type="text" animation-speed="250" />
                 </button>
             </div>

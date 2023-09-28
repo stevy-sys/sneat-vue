@@ -2,9 +2,26 @@
 import avatar1 from '@images/avatars/avatar-1.png';
 import eCommerce2 from '@images/eCommerce/2.png'
 import HeaderPub from './HeaderPub.vue';
-defineProps({
+import { VSkeletonLoader } from 'vuetify/lib/labs/components.mjs';
+const props = defineProps({
     type: {
         type: String,
+        required: false,
+    },
+    actionType: {
+        type: String,
+        required: false,
+    },
+    isLoading: {
+        type: Boolean,
+        required: false,
+    },
+    share: {
+        type: Object,
+        required: false,
+    },
+    user: {
+        type: Object,
         required: false,
     }
 })
@@ -26,15 +43,17 @@ const moreList = [
 
 <template>
     <VCard class="pub-share">
-        <div v-if="type == 'shareStatuMedia'"
+        <div v-if="props?.type == 'media_pub'"
             class="d-flex justify-space-between flex-wrap flex-md-nowrap flex-column flex-md-row">
             <div>
-                <HeaderPub :type="type" :avatar="avatar1" :moreList="moreList" />
-
+                <HeaderPub :isLoading="props?.isLoading" :user="props?.share?.user" :actionType="props?.share?.actionType"
+                    :avatar="avatar1" :moreList="moreList" />
                 <VCardText>
-                    <RouterLink to="/publication" class="text-publication">
-                        Lorem ipsum dolor sit amet. cds
+                    <RouterLink v-if="!props?.isLoading" to="/publication" class="text-publication">
+                        {{ props?.share?.description }}
                     </RouterLink>
+                    <VSkeletonLoader class="skeleton-text-publication" v-if="props?.isLoading" max-width="500" type="text"
+                        animation-speed="250" />
                 </VCardText>
             </div>
             <VDivider :vertical="$vuetify.display.mdAndUp" />
@@ -42,13 +61,19 @@ const moreList = [
                 <VImg width="250" height="176" :src="eCommerce2" />
             </div>
         </div>
-        <div v-if="(type == 'shareStatut') || (type == 'sharePubGroupe')">
-            <HeaderPub :type="type" :avatar="avatar1" :moreList="moreList" />
+        <div v-if="props?.type == 'simple_pub'">
+            <HeaderPub :isLoading="props?.isLoading" :actionType="props?.share?.actionType" :user="props?.share?.user"
+                :type="props?.share?.type" :avatar="avatar1" :moreList="moreList" />
 
             <VCardText>
-                <p class="clamp-text mb-0 textedescription">
-                    Lorem ipsum dolor sit amet.
-                </p>
+                <RouterLink v-if="!props?.isLoading" to="/publication" class="text-publication">
+                    {{ props?.share?.description }}
+                </RouterLink>
+                <!-- <p class="clamp-text mb-0 textedescription">
+                    {{ props?.share?.description }}
+                </p> -->
+                <VSkeletonLoader class="skeleton-text-publication" v-if="props?.isLoading" max-width="500" type="text"
+                    animation-speed="250" />
             </VCardText>
         </div>
     </VCard>
