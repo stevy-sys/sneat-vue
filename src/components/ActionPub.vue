@@ -9,7 +9,10 @@ defineProps({
     },
     isLoading: {
         type: Boolean
-    }
+    },
+    countComments: {
+        type: String
+    },
 })
 
 const showComment = (value) => {
@@ -29,7 +32,7 @@ const showComment = (value) => {
 
         <span class="text-subtitle-2  me-4">6K</span>
         <IconBtn @click="showComment(isCardDetailsVisible)" icon="bx-comment" color="#97a2ac" class="me-1" />
-        <span class="text-subtitle-2 me-4">2L</span>
+        <span class="text-subtitle-2 me-4">{{ countComments }}</span>
         <IconBtn icon="bx-share-alt" color="#97a2ac" class="me-1" />
         <span class="text-subtitle-2 ">9K</span>
     </div>

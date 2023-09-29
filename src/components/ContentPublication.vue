@@ -67,14 +67,14 @@ const moreList = [
             <SharePub v-if="props?.publication?.share" :isLoading="props?.isLoading" :user="props?.publication?.share?.user"
                 :type="props?.publication?.share?.type" :share="props?.publication?.share" />
 
-            <ActionPub v-if="showComms" :isLoading="props?.isLoading"
+            <ActionPub :countComments="props?.publication?.countcommentaire" v-if="showComms" :isLoading="props?.isLoading"
                 @emmitShowComment="(value) => { isCardDetailsVisible = value }"
                 :isCardDetailsVisible="isCardDetailsVisible" />
         </VCardText>
 
         <VExpandTransition v-if="showComms">
             <div class="form-coms-component" v-show="isCardDetailsVisible">
-                <ListComment />
+                <ListComment :commentaires="props?.publication?.commentaire" />
             </div>
         </VExpandTransition>
     </div>

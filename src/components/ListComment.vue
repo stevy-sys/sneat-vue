@@ -1,6 +1,11 @@
 <script lang="ts" setup>
 import OneComment from './OneComment.vue';
-
+const props = defineProps({
+    commentaires: {
+        type: Array,
+        required: false,
+    },
+})
 const items = [
     {
         img: 'https://cdn.vuetifyjs.com/images/lists/1.jpg',
@@ -58,8 +63,8 @@ const addComment = () => {
         </div> -->
         <v-virtual-scroll width="100%" :height="400" :items="['1']">
             <template v-slot:default="{ item }">
-                <OneComment v-for=" (item, key)  in  items " :id="key" :img="item.img" :user="item.user"
-                    :comment="item.comment" />
+                <OneComment v-for=" (item, key)  in  commentaires " :id="key"
+                    img="https://cdn.vuetifyjs.com/images/lists/2.jpg" :user="item?.user?.name" :comment="item?.message" />
             </template>
         </v-virtual-scroll>
 

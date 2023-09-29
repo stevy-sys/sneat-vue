@@ -4,10 +4,10 @@ import DefaultLayoutWithVerticalNav from './components/DefaultLayoutWithVertical
 
 <template>
   <DefaultLayoutWithVerticalNav>
-    <!-- <transition mode="out-in" enter-active-class="animate__animated animate__fadeInDown"
-      leave-active-class="animate__animated animate__fadeOut"> -->
-    <RouterView />
-    <!-- </transition> -->
+    <transition mode="out-in" enter-active-class="animate__animated animate__fadeInDown"
+      leave-active-class="animate__animated animate__fadeOut">
+      <RouterView />
+    </transition>
   </DefaultLayoutWithVerticalNav>
 </template>
 

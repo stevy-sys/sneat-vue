@@ -38,21 +38,25 @@
             <h1>Actualite</h1>
             <!-- status -->
             <VCard v-for="actu in actuality" class="mt-3 pub-status">
-                <ContentPublication :isLoading="isLoading" v-if="actu.publication.type == 'simple_pub'" :showComms="true"
-                    :isShare="false" :user="actu.user" :publication="actu.publication" />
-                <div v-else class="d-flex justify-space-between flex-wrap flex-md-nowrap flex-column flex-md-row">
-                    <div>
-                        <ContentPublication :isLoading="isLoading" :showComms="true" :isShare="false" :user="actu.user"
-                            :publication="actu.publication" :type="actu.publication.type" />
+                <transition mode="out-in" enter-active-class="animate__animated animate__fadeInDown"
+                    leave-active-class="animate__animated animate__fadeOut">
+                    <ContentPublication :isLoading="isLoading" v-if="actu.publication.type == 'simple_pub'"
+                        :showComms="true" :isShare="false" :user="actu.user" :publication="actu.publication" />
+                    <div v-else class="d-flex justify-space-between flex-wrap flex-md-nowrap flex-column flex-md-row">
+                        <div>
+                            <ContentPublication :isLoading="isLoading" :showComms="true" :isShare="false" :user="actu.user"
+                                :publication="actu.publication" :type="actu.publication.type" />
+                        </div>
+                        <VDivider :vertical="$vuetify.display.mdAndUp" />
+                        <div class="ma-auto pa-5">
+                            <VImg width="250" height="176" :src="eCommerce2" />
+                            <VImg width="250" height="176" src="https://picsum.photos/250/176" />
+                        </div>
                     </div>
-                    <VDivider :vertical="$vuetify.display.mdAndUp" />
-                    <div class="ma-auto pa-5">
-                        <VImg width="250" height="176" :src="eCommerce2" />
-                        <VImg width="250" height="176" src="https://picsum.photos/250/176" />
-                    </div>
-                </div>
 
+                </transition>
             </VCard>
+
         </VCol>
 
         <VCol cols="12" md="6" lg="4">
@@ -97,6 +101,7 @@ const nexPage = ref(false);
 
 const data = [1, 2, 3, 4, 5, 6]
 const chargeNewActu = ref(false)
+const showSkeletonActu = ref(false)
 
 const refactData = (response) => {
     let donnee = [];
@@ -241,6 +246,7 @@ async function handleScroll() {
     const endOfPage = await document.documentElement.scrollHeight - window.innerHeight - 100;
     if ((scrollY.value >= endOfPage) && (chargeNewActu.value == false)) {
         chargeNewActu.value = true
+        showSkeletonActu.value = await true
         const response = await getAllActualite(nexPage.value);
         console.log('ici', response)
         nexPage.value = await response.data.data.next_page_url
@@ -251,6 +257,7 @@ async function handleScroll() {
         })
         setTimeout(() => {
             chargeNewActu.value = false
+            showSkeletonActu.value = false
         }, 4000);
     }
 }
