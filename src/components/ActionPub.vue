@@ -11,7 +11,7 @@ defineProps({
         type: Boolean
     },
     countComments: {
-        type: String
+        type: Number
     },
 })
 

@@ -3,14 +3,7 @@
     <VRow class="friend-suggest-virtual">
         <v-virtual-scroll height="auto" :items="['1']">
             <template v-slot:default="{ item }">
-                <Suggest type="friends" :isLoading="isLoading" />
-                <Suggest type="friends" :isLoading="isLoading" />
-                <Suggest type="friends" :isLoading="isLoading" />
-                <Suggest type="friends" :isLoading="isLoading" />
-                <Suggest type="friends" :isLoading="isLoading" />
-                <Suggest type="friends" :isLoading="isLoading" />
-                <Suggest type="friends" :isLoading="isLoading" />
-
+                <Suggest type="friends" />
             </template>
         </v-virtual-scroll>
     </VRow>
@@ -92,6 +85,12 @@ import eCommerce2 from '@images/eCommerce/2.png'
 import ContentPublication from '@/components/ContentPublication.vue'
 import { getAllActualite } from '@/services/Actualite'
 import { onMounted } from 'vue';
+// import { useStore } from 'vuex';
+
+
+// const store = useStore(); // Obtenez l'instance du store Vuex
+// store.dispatch('init')
+
 
 const isLoading = ref(false)
 const actuality = ref([])
@@ -248,10 +247,8 @@ async function handleScroll() {
         chargeNewActu.value = true
         showSkeletonActu.value = await true
         const response = await getAllActualite(nexPage.value);
-        console.log('ici', response)
         nexPage.value = await response.data.data.next_page_url
         let donnee = refactData(response)
-        console.log('ici', donnee)
         donnee.forEach(element => {
             actuality.value.push(element)
         })

@@ -12,7 +12,7 @@ defineProps({
     type: {
         type: String
     }
-})
+});
 
 const snackbar = ref(false)
 </script>
