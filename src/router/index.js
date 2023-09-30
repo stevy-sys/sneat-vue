@@ -26,7 +26,8 @@ const router = createRouter({
           component: () => import('../pages/publication.vue'),
         },
         {
-          path: 'profile',
+          path: 'profile/:id',
+          name: "profile",
           component: () => import('../pages/profile.vue'),
         },
         {
@@ -61,12 +62,12 @@ const router = createRouter({
       children: [
         {
           path: 'login',
-          name:'login',
+          name: 'login',
           component: () => import('../pages/login.vue'),
         },
         {
           path: 'register',
-          name:'register',
+          name: 'register',
           component: () => import('../pages/register.vue'),
         },
         {
@@ -83,9 +84,9 @@ router.beforeEach((to, from, next) => {
   if (to.meta.requiresAuth && !isAuthenticated) {
     next('/login') // Redirige vers /login si l'utilisateur n'est pas authentifié et tente d'accéder à une route protégée
   } else {
-    if ((isAuthenticated) && (to.name == 'register' || to.name == 'login') ) {
+    if ((isAuthenticated) && (to.name == 'register' || to.name == 'login')) {
       next('/')
-    }else{
+    } else {
       next() // Poursuit la navigation normalement
     }
   }

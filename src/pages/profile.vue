@@ -13,21 +13,24 @@
                     <div class="d-flex justify-space-between flex-wrap pt-8">
                         <div class="me-2 mb-2">
                             <VCardTitle class="pa-0">
-                                Robert Meyer
+                                {{ store.getters.getOtherProfile?.name }}
                             </VCardTitle>
                             <VCardSubtitle class="text-caption pa-0">
                                 London, UK
                             </VCardSubtitle>
                         </div>
-                        <VBtn>send request</VBtn>
+                        <VBtn v-if="store.getters.getOtherProfile?.isFriend">Retirer amis </VBtn>
+                        <VBtn v-else>Demande amis</VBtn>
                     </div>
 
                     <!--  Mutual Friends -->
                     <div class="d-flex justify-space-between align-center mt-4">
-                        <span class="font-weight-medium">18 mutual friends</span>
+                        <span class="font-weight-medium">{{ store.getters.getOtherProfile?.amis_communs?.length }} mutual
+                            friends</span>
 
                         <div class="v-avatar-group">
-                            <VAvatar v-for="avatar in avatars" :key="avatar" :image="avatar" size="40" />
+                            <VAvatar v-for="user in store.getters.getOtherProfile?.amis_communs" :key="user.id"
+                                :image="avatar1" size="40" />
                         </div>
                     </div>
                 </VCardText>
@@ -47,8 +50,27 @@
                 <VWindow v-model="navigationTab2">
                     <VWindowItem v-for="item in tabItems" :key="item" :value="item">
                         <div v-if="item == 'Journal'">
-
-                            <VCard class="m-10 pub-status">
+                            <VCard :class="route.name == 'profile' ? 'profile' : ''"
+                                v-for="actu in store.getters.getActuProfile" class="mt-3 pub-status">
+                                <ContentPublication :isLoading="store.getters.getChargementActuProfile"
+                                    v-if="actu.publication.type == 'simple_pub'" :showComms="true" :isShare="false"
+                                    :user="actu.user" :time="actu.date" :publication="actu.publication" />
+                                <div v-else
+                                    class="d-flex justify-space-between flex-wrap flex-md-nowrap flex-column flex-md-row">
+                                    <div>
+                                        <ContentPublication :time="actu.date"
+                                            :isLoading="store.getters.getChargementActuProfile" :showComms="true"
+                                            :isShare="false" :user="actu.user" :publication="actu.publication"
+                                            :type="actu.publication.type" />
+                                    </div>
+                                    <VDivider :vertical="$vuetify.display.mdAndUp" />
+                                    <div class="ma-auto pa-5">
+                                        <VImg width="250" height="176" :src="eCommerce2" />
+                                        <!-- <VImg width="250" height="176" src="https://picsum.photos/250/176" /> -->
+                                    </div>
+                                </div>
+                            </VCard>
+                            <!-- <VCard class="m-10 pub-status">
                                 <div>
                                     <ContentPublication :isShare="false" type="statut" />
                                 </div>
@@ -65,20 +87,17 @@
                                     </div>
                                 </div>
                             </VCard>
-                            <!-- share une status -->
                             <VCard class="m-10 mt-3 pub-status ">
                                 <ContentPublication :isShare="true" type="shareStatut" />
                             </VCard>
 
-                            <!-- publication dans une groupe a partir de actualite -->
                             <VCard class="m-10 mt-3 pub-status ">
                                 <ContentPublication :isShare="true" type="sharePubGroupe" />
                             </VCard>
 
-                            <!-- share une status with media  -->
                             <VCard class="m-10 mt-3 pub-status ">
                                 <ContentPublication :isShare="true" type="shareStatuMedia" />
-                            </VCard>
+                            </VCard> -->
                         </div>
 
                         <div class="text-center" v-if="item == 'Profile'">
@@ -263,11 +282,16 @@ import creditCardSuccess from '@images/cards/credit-card-success.png'
 import creditCardWarning from '@images/cards/credit-card-warning.png'
 import paypalError from '@images/cards/paypal-error.png'
 import walletPrimary from '@images/cards/wallet-primary.png'
-import { useRoute } from 'vue-router'
+import { useRoute, useRouter } from 'vue-router'
 import AccountSettingsAccount from '@/views/pages/account-settings/AccountSettingsAccount.vue'
 import AccountSettingsNotification from '@/views/pages/account-settings/AccountSettingsNotification.vue'
 import AccountSettingsSecurity from '@/views/pages/account-settings/AccountSettingsSecurity.vue'
 import ContentPublication from '@/components/ContentPublication.vue';
+
+import { useStore } from 'vuex';
+import { onMounted, watch } from 'vue';
+
+const store = useStore(); // Obtenez l'instance du store Vuex
 
 const route = useRoute()
 const activeTab = ref(route.params.tab)
@@ -474,6 +498,21 @@ const tabItems = [
     'Amis'
 ]
 
+
+watch(() => route.params.id, (newId, oldId) => {
+    console.log('change')
+    const data = {
+        user_id: newId
+    }
+    store.dispatch('setActualityProfile', data)
+})
+onMounted(() => {
+    const data = {
+        user_id: route.params.id
+    }
+    store.dispatch('setActualityProfile', data)
+
+})
 // const tabContent = 'Although cards can support multiple actions, UI controls, and an overflow menu, use restraint and remember that cards...'
 </script>
 <style lang="scss" scoped>
@@ -549,5 +588,14 @@ const tabItems = [
 
 .v-card.v-theme--light.v-card--density-default.v-card--variant-elevated.m-10.pub-status {
     margin: 30px;
+}
+
+
+.v-card.v-theme--light.v-card--density-default.v-card--variant-elevated.profile.mt-3.pub-status {
+    margin: 20px;
+}
+
+.v-card.v-theme--dark.v-card--density-default.v-card--variant-elevated.profile.mt-3.pub-status {
+    margin: 20px;
 }
 </style>
