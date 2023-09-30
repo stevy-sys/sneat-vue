@@ -4,6 +4,7 @@ import avatar2 from '@images/avatars/avatar-2.png';
 import ModalFriendsCommun from '@/components/Modal/ModalFriendsCommun.vue'
 import pages2 from '@images/pages/2.png';
 import { VSkeletonLoader } from 'vuetify/lib/labs/components.mjs';
+import { useStore } from 'vuex';
 
 defineProps({
     isLoading: {
@@ -11,9 +12,17 @@ defineProps({
     },
     type: {
         type: String
-    }
+    },
+    user: {
+        type: Object
+    },
+    groupe: {
+        type: Object
+    },
 });
 
+
+const store = useStore(); // Obtenez l'instance du store Vuex
 const snackbar = ref(false)
 </script>
 
@@ -27,7 +36,7 @@ const snackbar = ref(false)
                 <div class="d-flex justify-space-between flex-wrap" :class="type == 'friends' ? 'pt-12' : ''">
                     <div :class="isLoading == true ? 'skeleton-name-suggest' : ''" class="me-2 mb-2">
                         <VCardTitle class="pa-0 name-suggest">
-                            <RouterLink :to="type == 'friends' ? '/profile' : '/groupe'" v-if="!isLoading">Robert Meyer
+                            <RouterLink :to="type == 'friends' ? '/profile' : '/groupe'" v-if="!isLoading">{{ user.name }}
                             </RouterLink>
                             <VSkeletonLoader v-if="isLoading" max-width="500" type="text" animation-speed="250" />
                         </VCardTitle>
@@ -39,7 +48,7 @@ const snackbar = ref(false)
                     <VBtn @click="snackbar = true" v-if="!isLoading" class="send-request"> {{ type == 'friends' ?
                         'Ajouter' : 'Rejoindre' }}</VBtn>
                     <v-snackbar v-model="snackbar">
-                        Invitation envoyer a Jane Doe
+                        Invitation envoyer a {{ user.name }}
                         <template v-slot:actions>
                             <v-btn color="pink" variant="text" @click="snackbar = false">
                                 Annuler
@@ -54,25 +63,25 @@ const snackbar = ref(false)
                 <!--  Mutual Friends -->
                 <div class="d-flex justify-space-between align-center">
                     <span v-if="!isLoading" class="font-weight-medium mutual-friends">
-                        <ModalFriendsCommun :type="type" :isLoading="isLoading" />
+                        <ModalFriendsCommun :count="user.amis_communs.length" :type="type" :isLoading="isLoading" />
                     </span>
                     <div v-if="isLoading" class="font-weight-medium skeleton-mutual-friends">
                         <VSkeletonLoader max-width="500" type="text" animation-speed="250" />
                     </div>
 
                     <div v-if="!isLoading" class="v-avatar-group avatar-commun">
-                        <RouterLink to="/profile">
+                        <RouterLink v-for="commun in user.amis_communs" to="/profile">
+                            <VAvatar class="one-avatar" :image="avatar2" size="30" />
+                            <v-tooltip activator="parent" location="bottom">{{ commun.name }}</v-tooltip>
+                        </RouterLink>
+                        <!-- <RouterLink to="/profile">
                             <VAvatar class="one-avatar" :image="avatar2" size="30" />
                             <v-tooltip activator="parent" location="bottom">Tooltip</v-tooltip>
                         </RouterLink>
                         <RouterLink to="/profile">
                             <VAvatar class="one-avatar" :image="avatar2" size="30" />
                             <v-tooltip activator="parent" location="bottom">Tooltip</v-tooltip>
-                        </RouterLink>
-                        <RouterLink to="/profile">
-                            <VAvatar class="one-avatar" :image="avatar2" size="30" />
-                            <v-tooltip activator="parent" location="bottom">Tooltip</v-tooltip>
-                        </RouterLink>
+                        </RouterLink> -->
                     </div>
                     <div v-if="isLoading" class="v-avatar-group skeleton-avatar-commun">
                         <div class="width-skeleton">

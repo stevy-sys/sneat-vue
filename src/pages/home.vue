@@ -3,7 +3,8 @@
     <VRow class="friend-suggest-virtual">
         <v-virtual-scroll height="auto" :items="['1']">
             <template v-slot:default="{ item }">
-                <Suggest type="friends" />
+                <Suggest v-for="user in store.getters.getSuggestionFriends.data"
+                    :isLoading="store.getters.getSuggestionFriends.isLoading" :user="user" type="friends" />
             </template>
         </v-virtual-scroll>
     </VRow>
@@ -30,26 +31,23 @@
         <VCol cols="12" md="6" lg="8">
             <h1>Actualite</h1>
             <!-- status -->
-            <VCard v-for="actu in actuality" class="mt-3 pub-status">
-                <transition mode="out-in" enter-active-class="animate__animated animate__fadeInDown"
-                    leave-active-class="animate__animated animate__fadeOut">
-                    <ContentPublication :isLoading="isLoading" v-if="actu.publication.type == 'simple_pub'"
-                        :showComms="true" :isShare="false" :user="actu.user" :publication="actu.publication" />
-                    <div v-else class="d-flex justify-space-between flex-wrap flex-md-nowrap flex-column flex-md-row">
-                        <div>
-                            <ContentPublication :isLoading="isLoading" :showComms="true" :isShare="false" :user="actu.user"
-                                :publication="actu.publication" :type="actu.publication.type" />
-                        </div>
-                        <VDivider :vertical="$vuetify.display.mdAndUp" />
-                        <div class="ma-auto pa-5">
-                            <VImg width="250" height="176" :src="eCommerce2" />
-                            <VImg width="250" height="176" src="https://picsum.photos/250/176" />
-                        </div>
+            <VCard v-for="actu in store.getters.getActu" class="mt-3 pub-status">
+                <ContentPublication :isLoading="store.getters.getChargementActu"
+                    v-if="actu.publication.type == 'simple_pub'" :showComms="true" :isShare="false" :user="actu.user"
+                    :time="actu.date" :publication="actu.publication" />
+                <div v-else class="d-flex justify-space-between flex-wrap flex-md-nowrap flex-column flex-md-row">
+                    <div>
+                        <ContentPublication :time="actu.date" :isLoading="store.getters.getChargementActu" :showComms="true"
+                            :isShare="false" :user="actu.user" :publication="actu.publication"
+                            :type="actu.publication.type" />
                     </div>
-
-                </transition>
+                    <VDivider :vertical="$vuetify.display.mdAndUp" />
+                    <div class="ma-auto pa-5">
+                        <VImg width="250" height="176" :src="eCommerce2" />
+                        <!-- <VImg width="250" height="176" src="https://picsum.photos/250/176" /> -->
+                    </div>
+                </div>
             </VCard>
-
         </VCol>
 
         <VCol cols="12" md="6" lg="4">
@@ -85,158 +83,22 @@ import eCommerce2 from '@images/eCommerce/2.png'
 import ContentPublication from '@/components/ContentPublication.vue'
 import { getAllActualite } from '@/services/Actualite'
 import { onMounted } from 'vue';
-// import { useStore } from 'vuex';
+import { useStore } from 'vuex';
 
 
-// const store = useStore(); // Obtenez l'instance du store Vuex
-// store.dispatch('init')
+const store = useStore(); // Obtenez l'instance du store Vuex
 
 
-const isLoading = ref(false)
-const actuality = ref([])
 
 const scrollY = ref(0);
-const nexPage = ref(false);
 
 const data = [1, 2, 3, 4, 5, 6]
 const chargeNewActu = ref(false)
 const showSkeletonActu = ref(false)
 
-const refactData = (response) => {
-    let donnee = [];
-    response.data.data.forEach(element => {
-        let data = {
-            user: {
-                id: "",
-                nom: "dfsdf",
-                pdp: ""
-            },
-            publication: {
-                type: "",
-                id: "",
-                description: "",
-                media: [],
-                share: null,
-                countcommentaire: "",
-                countReaction: "",
-                commentaire: [
-                    {
-                        user: {
-                            id: "",
-                            nom: "",
-                            pdp: ""
-                        },
-                        description: "",
-                        countReaction: ""
-                    }
-                ]
-            },
-            date: ""
-        }
-
-        data.user.id = element.actualable.user.id
-        data.user.nom = element.actualable.user.name
-        data.user.pdp = element.actualable.user.media
-
-        data.publication.actionType = "statut"
-        data.publication.id = element.actualable.id
-        data.publication.description = element.actualable.description
-        data.publication.media = element.actualable.media
-
-        if (data.publication.media.length == 0) {
-            data.publication.type = 'simple_pub'
-        } else {
-            data.publication.type = 'media_pub'
-        }
-
-        if (element.actualable.publicable_type == "App\\Models\\Shares") {
-            data.publication.share = {
-                type: "statut",
-                actionType: "statut",
-                user: {
-                    id: element.actualable.publicable.sharable.user.id,
-                    nom: element.actualable.publicable.sharable.user.name,
-                    pdp: element.actualable.publicable.sharable.user.media
-                },
-                id_publication: element.actualable.publicable.sharable.id,
-                description: element.actualable.publicable.sharable.description,
-                countReaction: element.actualable.publicable.sharable.countReaction,
-                media: element.actualable.publicable.sharable.media,
-            }
-            data.publication.actionType = "share_statut"
-            if (data.publication.share.media.length == 0) {
-                data.publication.share.type = 'simple_pub'
-            } else {
-                data.publication.share.type = 'media_pub'
-                data.publication.share.actionType = "statutMedia"
-                data.publication.actionType = "shareStatuMedia"
-            }
-
-        }
-
-        if (element.actualable.publicable_type == 'App\\Models\\Group') {
-            data.publication.description = null;
-            data.publication.media = [];
-            data.publication.share = {
-                type: "statut",
-                actionType: "sharePubGroupe",
-                user: {
-                    id: element.actualable.user.id,
-                    nom: element.actualable.user.name,
-                    pdp: element.actualable.user.media
-                },
-                id_publication: element.actualable_id,
-                description: element.actualable.description,
-                countReaction: element.actualable.countReaction,
-                media: element.actualable.media,
-                groupe: {
-                    name: element.actualable.publicable.name,
-                    id: element.actualable.publicable.id
-                }
-            }
-
-            data.publication.share.groupe.id = element.actualable.publicable.id
-            data.publication.share.groupe.name = element.actualable.publicable.name
-
-            data.publication.share.user.id = element.actualable.user.id
-            data.publication.share.user.nom = element.actualable.user.name
-            data.publication.share.user.pdp = element.actualable.user.media
-            data.publication.share.id_publication = element.actualable_id
-            data.publication.share.description = element.actualable.description
-            data.publication.share.media = element.actualable.media
-
-            data.publication.actionType = "actu_group"
-
-            if (data.publication.share.media.length == 0) {
-                data.publication.share.type = 'simple_pub'
-            } else {
-                data.publication.share.type = 'simple_pub'
-                data.publication.actionType = "sharePubMediaGroupe"
-                data.publication.share.actionType = 'sharePubGroupe'
-            }
-            data.publication.share.countReaction = element.actualable.countReaction
-        }
-
-        data.publication.countcommentaire = element.actualable.countCommentaire
-        data.publication.countReaction = element.actualable.countReaction
-        data.publication.commentaire = element.actualable.commentaires,
-            data.date = element.created_at
-
-        donnee.push(data)
-    });
-    return donnee
-}
 
 onMounted(async () => {
     window.addEventListener('scroll', handleScroll);
-    isLoading.value = true
-    const response = await getAllActualite();
-    nexPage.value = response.data.data.next_page_url
-    let donnee = refactData(response)
-    actuality.value = donnee
-    setTimeout(() => {
-        isLoading.value = false
-    }, 4000);
 })
 
 
@@ -246,12 +108,7 @@ async function handleScroll() {
     if ((scrollY.value >= endOfPage) && (chargeNewActu.value == false)) {
         chargeNewActu.value = true
         showSkeletonActu.value = await true
-        const response = await getAllActualite(nexPage.value);
-        nexPage.value = await response.data.data.next_page_url
-        let donnee = refactData(response)
-        donnee.forEach(element => {
-            actuality.value.push(element)
-        })
+        store.dispatch('setActuality')
         setTimeout(() => {
             chargeNewActu.value = false
             showSkeletonActu.value = false

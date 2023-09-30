@@ -5,6 +5,9 @@ defineProps({
     isLoading: {
         type: Boolean
     },
+    count: {
+        type: Number
+    },
     type: {
         type: String
     }
@@ -17,7 +20,7 @@ const dialog = ref(false);
 <template>
     <v-dialog v-model="dialog" scrollable width="auto" :overlay-opacity="0.1">
         <template v-slot:activator="{ props }">
-            <span v-if="type == 'friends'" v-bind="props" style="cursor: pointer;">8 amis en commun</span>
+            <span v-if="type == 'friends'" v-bind="props" style="cursor: pointer;">{{ count }} amis en commun</span>
             <span v-if="type == 'groupe'" v-bind="props" style="cursor: pointer;">8 Membres</span>
         </template>
         <ContentFriendsCommun />

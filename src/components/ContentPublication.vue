@@ -20,6 +20,9 @@ const props = defineProps({
         type: Boolean,
         required: true,
     },
+    time: {
+        type: String,
+    },
     showComms: {
         type: Boolean,
         required: true,
@@ -52,8 +55,8 @@ const moreList = [
 
 <template>
     <div v-if="props.publication">
-        <HeaderPub :user="props?.user" :actionType="props?.publication?.actionType" :isLoading="props?.isLoading"
-            :type="props?.publication?.type" :avatar="avatar1" :moreList="moreList" />
+        <HeaderPub :time="props?.time" :user="props?.user" :actionType="props?.publication?.actionType"
+            :isLoading="props?.isLoading" :type="props?.publication?.type" :avatar="avatar1" :moreList="moreList" />
 
         <VCardText>
             <p class="clamp-text mb-0 textedescription">
@@ -64,15 +67,16 @@ const moreList = [
                 <VSkeletonLoader class="skeleton-text-publication" v-if="props?.isLoading" max-width="500" type="text"
                     animation-speed="250" />
             </p>
-            <SharePub v-if="props?.publication?.share" :isLoading="props?.isLoading" :user="props?.publication?.share?.user"
-                :type="props?.publication?.share?.type" :share="props?.publication?.share" />
+            <SharePub v-if="props?.publication?.share" :time="props?.publication?.share?.date" :isLoading="props?.isLoading"
+                :user="props?.publication?.share?.user" :type="props?.publication?.share?.type"
+                :share="props?.publication?.share" />
 
             <ActionPub :countComments="props?.publication?.countcommentaire" v-if="showComms" :isLoading="props?.isLoading"
                 @emmitShowComment="(value) => { isCardDetailsVisible = value }"
                 :isCardDetailsVisible="isCardDetailsVisible" />
         </VCardText>
 
-        <VExpandTransition v-if="showComms">
+        <VExpandTransition v-if="showComms && props?.publication?.commentaire?.length > 0">
             <div class="form-coms-component" v-show="isCardDetailsVisible">
                 <ListComment :commentaires="props?.publication?.commentaire" />
             </div>

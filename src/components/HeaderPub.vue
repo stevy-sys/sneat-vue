@@ -20,6 +20,9 @@ const props = defineProps({
     type: {
         type: String,
     },
+    time: {
+        type: String,
+    },
     moreList: {
         type: Array
     }
@@ -50,7 +53,7 @@ const showTooltip = () => {
                     <PublicationDescription :actionType="props?.actionType" :user="props?.user"
                         :isLoading="props?.isLoading" :type="props?.type" />
                 </div>
-                <div v-if="!props?.isLoading" class="timestamps">4m</div>
+                <div v-if="!props?.isLoading" class="timestamps">{{ time }}</div>
                 <div v-if="props?.isLoading" class="timestamps squeleton-timestamps">
                     <VSkeletonLoader max-width="500" type="text" animation-speed="250" />
                 </div>

@@ -8,6 +8,10 @@ const props = defineProps({
         type: String,
         required: false,
     },
+    time: {
+        type: String,
+        required: false,
+    },
     actionType: {
         type: String,
         required: false,
@@ -43,11 +47,11 @@ const moreList = [
 
 <template>
     <VCard class="pub-share">
-        <div v-if="props?.type == 'media_pub'"
-            class="d-flex justify-space-between flex-wrap flex-md-nowrap flex-column flex-md-row">
+        <!-- <div v-if="props?.type == 'media_pub'" class="d-flex justify-space-between flex-wrap flex-md-nowrap flex-column flex-md-row"> -->
+        <div v-if="props?.type == 'media_pub'" class="">
             <div>
-                <HeaderPub :isLoading="props?.isLoading" :user="props?.share?.user" :actionType="props?.share?.actionType"
-                    :avatar="avatar1" :moreList="moreList" />
+                <HeaderPub :time="props?.time" :isLoading="props?.isLoading" :user="props?.share?.user"
+                    :actionType="props?.share?.actionType" :avatar="avatar1" :moreList="moreList" />
                 <VCardText>
                     <RouterLink v-if="!props?.isLoading" to="/publication" class="text-publication">
                         {{ props?.share?.description }}
@@ -62,8 +66,8 @@ const moreList = [
             </div>
         </div>
         <div v-if="props?.type == 'simple_pub'">
-            <HeaderPub :isLoading="props?.isLoading" :actionType="props?.share?.actionType" :user="props?.share?.user"
-                :type="props?.share?.type" :avatar="avatar1" :moreList="moreList" />
+            <HeaderPub :time="props?.time" :isLoading="props?.isLoading" :actionType="props?.share?.actionType"
+                :user="props?.share?.user" :type="props?.share?.type" :avatar="avatar1" :moreList="moreList" />
 
             <VCardText>
                 <RouterLink v-if="!props?.isLoading" to="/publication" class="text-publication">
@@ -86,5 +90,9 @@ const moreList = [
 
 .v-card.v-theme--light.v-card--density-default.v-card--variant-elevated.mt-3.pub-status .pub-share {
     background-color: #f5f5f9 !important;
+}
+
+.ma-auto.pa-5 {
+    display: flex;
 }
 </style>

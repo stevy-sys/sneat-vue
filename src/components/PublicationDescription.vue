@@ -39,10 +39,10 @@ const getType = () => {
             text.value = props?.user?.nom + ' a partage un photo de Jane Doe'
             break;
         case 'sharePubGroupe':
-            text.value = props?.user?.nom + ' John Doe > Gasikaratsika'
+            text.value = props?.user?.nom + ' > Gasikaratsika'
             break;
         case 'sharePubMediaGroupe':
-            text.value = props?.user?.nom + ' John Doe a ubliez une photo dans Gasikaratsika'
+            text.value = props?.user?.nom + ' a ubliez une photo dans Gasikaratsika'
             break;
 
         default:
