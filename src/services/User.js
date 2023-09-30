@@ -8,3 +8,16 @@ export function getProfile(user_id) {
         .then(response => { return response })
         .catch(error => { console.error(error); })
 }
+
+export function login(data) {
+    return axios.post(routeAPi.login, data, { headers })
+        .then(response => response.data)
+        .catch(error => { console.error(error); })
+}
+
+export function register(data) {
+    return axios.post(routeAPi.register, data, { headers })
+        .then(response => response.data)
+        .catch(error => { console.error(error); })
+}
+

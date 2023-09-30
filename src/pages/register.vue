@@ -1,30 +1,35 @@
 <script setup>
+import { register } from '@/services/User';
 import AuthProvider from '@/views/pages/authentication/AuthProvider.vue'
 import logo from '@images/logo.svg?raw'
 
 const form = ref({
-  username: '',
+  name: '',
   email: '',
   password: '',
   privacyPolicies: false,
 })
 
+
+const submit = async () => {
+  const response = await register(form.value)
+  if (response.success) {
+    alert('Inscription fait avec success veuillez connecter')
+    window.location.href = "/login"
+  } else {
+    alert('error auth')
+  }
+}
 const isPasswordVisible = ref(false)
 </script>
 
 <template>
   <div class="auth-wrapper d-flex align-center justify-center pa-4">
-    <VCard
-      class="auth-card pa-4 pt-7"
-      max-width="448"
-    >
+    <VCard class="auth-card pa-4 pt-7" max-width="448">
       <VCardItem class="justify-center">
         <template #prepend>
           <div class="d-flex">
-            <div
-              class="d-flex text-primary"
-              v-html="logo"
-            />
+            <div class="d-flex text-primary" v-html="logo" />
           </div>
         </template>
 
@@ -43,91 +48,52 @@ const isPasswordVisible = ref(false)
       </VCardText>
 
       <VCardText>
-        <VForm @submit.prevent="$router.push('/')">
+        <VForm @submit.prevent="submit">
           <VRow>
-            <!-- Username -->
+            <!-- name -->
             <VCol cols="12">
-              <VTextField
-                v-model="form.username"
-                autofocus
-                label="Username"
-                placeholder="Johndoe"
-              />
+              <VTextField v-model="form.name" autofocus label="name" placeholder="Johndoe" />
             </VCol>
             <!-- email -->
             <VCol cols="12">
-              <VTextField
-                v-model="form.email"
-                label="Email"
-                placeholder="johndoe@email.com"
-                type="email"
-              />
+              <VTextField v-model="form.email" label="Email" placeholder="johndoe@email.com" type="email" />
             </VCol>
 
             <!-- password -->
             <VCol cols="12">
-              <VTextField
-                v-model="form.password"
-                label="Password"
-                placeholder="············"
+              <VTextField v-model="form.password" label="Password" placeholder="············"
                 :type="isPasswordVisible ? 'text' : 'password'"
                 :append-inner-icon="isPasswordVisible ? 'bx-hide' : 'bx-show'"
-                @click:append-inner="isPasswordVisible = !isPasswordVisible"
-              />
+                @click:append-inner="isPasswordVisible = !isPasswordVisible" />
               <div class="d-flex align-center mt-1 mb-4">
-                <VCheckbox
-                  id="privacy-policy"
-                  v-model="form.privacyPolicies"
-                  inline
-                />
-                <VLabel
-                  for="privacy-policy"
-                  style="opacity: 1;"
-                >
+                <VCheckbox id="privacy-policy" v-model="form.privacyPolicies" inline />
+                <VLabel for="privacy-policy" style="opacity: 1;">
                   <span class="me-1">I agree to</span>
-                  <a
-                    href="javascript:void(0)"
-                    class="text-primary"
-                  >privacy policy & terms</a>
+                  <a href="javascript:void(0)" class="text-primary">privacy policy & terms</a>
                 </VLabel>
               </div>
 
-              <VBtn
-                block
-                type="submit"
-              >
+              <VBtn block type="submit">
                 Sign up
               </VBtn>
             </VCol>
 
             <!-- login instead -->
-            <VCol
-              cols="12"
-              class="text-center text-base"
-            >
+            <VCol cols="12" class="text-center text-base">
               <span>Already have an account?</span>
-              <RouterLink
-                class="text-primary ms-2"
-                to="/login"
-              >
+              <RouterLink class="text-primary ms-2" to="/login">
                 Sign in instead
               </RouterLink>
             </VCol>
 
-            <VCol
-              cols="12"
-              class="d-flex align-center"
-            >
+            <VCol cols="12" class="d-flex align-center">
               <VDivider />
               <span class="mx-4">or</span>
               <VDivider />
             </VCol>
 
             <!-- auth providers -->
-            <VCol
-              cols="12"
-              class="text-center"
-            >
+            <VCol cols="12" class="text-center">
               <AuthProvider />
             </VCol>
           </VRow>

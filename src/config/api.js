@@ -2,7 +2,7 @@ import { routeBasic } from "."
 
 export const routeAPi = {
     //authentification
-    login: routeBasic + '/connexion',
+    login: routeBasic + '/login',
     register: routeBasic + '/register',
     deconnect: routeBasic + '/deconnect',
 
