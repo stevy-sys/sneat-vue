@@ -1,6 +1,7 @@
 import { routeAPi } from '@/config/api';
 import { getAllActualite } from '@/services/Actualite';
 import { getFriendsSuggestion } from '@/services/Friends';
+import { getProfile } from '@/services/User';
 import { createStore } from 'vuex';
 
 const store = createStore({
@@ -18,6 +19,7 @@ const store = createStore({
         },
         otherProfile: {
             user_id: "",
+            user: {},
             data: [],
             nextPage: routeAPi.getAcualite,
             isLoading: true
@@ -38,27 +40,38 @@ const store = createStore({
         },
         async SET_ACTU_PROFILE(state, data) {
             let response = await '';
-            if (state.user_id == data.user_id) {
-                response = await getAllActualite(state.otherProfile.nextPage);
+            if (state.otherProfile.user_id == data.user_id) {
+                console.log('get data')
+                // response = await getAllActualite(state.otherProfile.nextPage);
             } else {
+                state.otherProfile.isLoading = true;
+                state.otherProfile.user_id = data.user_id
+                state.otherProfile.data = []
                 state.otherProfile.nextPage = routeAPi.getAcualite
+                const profile = await getProfile(data.user_id);
+                state.otherProfile.user = profile.data.user
                 response = await getAllActualite(state.otherProfile.nextPage + `/${data.user_id}`);
+                let donnee = await refactData(response)
+                console.log('actu profile', donnee);
+                state.otherProfile.data = state.otherProfile.data.concat(donnee.data)
+                state.otherProfile.nextPage = donnee.nextPage
+                setTimeout(() => {
+                    state.otherProfile.isLoading = false
+                }, 3000);
             }
-            let donnee = await refactData(response)
-            state.otherProfile.data = state.otherProfile.data.concat(donnee.data)
-            state.otherProfile.nextPage = donnee.nextPage
-            setTimeout(() => {
-                state.otherProfile.isLoading = false
-            }, 3000);
         },
 
         SET_STATE(state, actu) {
 
         },
         async SET_SUGGEST_FRIENDS(state) {
+            // state.suggestionFriends.isLoading = true
             const response = await getFriendsSuggestion(state.suggestionFriends.nextPage)
             state.suggestionFriends.data = await state.suggestionFriends.data.concat(response.data)
-            state.suggestionFriends.isLoading = await false
+            setTimeout(() => {
+                state.suggestionFriends.isLoading = false
+            }, 3000);
+            // state.suggestionFriends.isLoading = await false
         }
         // SET_CHARGE_ACTU(state, actu) {
         //     state.actuality.isLoading = !state.actuality.isLoading
@@ -87,6 +100,9 @@ const store = createStore({
         },
         getActuProfile(state) {
             return state.otherProfile.data
+        },
+        getOtherProfile(state) {
+            return state.otherProfile.user
         },
         getChargementActu(state) {
             return state.actuality.isLoading

@@ -16,7 +16,7 @@ export const routeAPi = {
 
 
     //user
-    myProfil: routeBasic + '/user/',
+    profil: routeBasic + '/otherProfil/',
     allUsers: routeBasic + '/all-user',
 
 

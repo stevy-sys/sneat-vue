@@ -41,7 +41,7 @@ const showTooltip = () => {
     <VCardItem class="pb-3 ">
         <VCardTitle class="mb-1 header-cart">
             <div>
-                <RouterLink to="/profile">
+                <RouterLink :to="'/profile/' + props?.user?.id">
                     <VAvatar class="avatar-container" v-if="!props?.isLoading" size="34" :image="props?.avatar" />
                     <VAvatar v-if="props?.isLoading" class="squeleton-avatar">
                         <VSkeletonLoader max-width="500" type="avatar" animation-speed="250" />

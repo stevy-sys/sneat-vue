@@ -36,7 +36,8 @@ const snackbar = ref(false)
                 <div class="d-flex justify-space-between flex-wrap" :class="type == 'friends' ? 'pt-12' : ''">
                     <div :class="isLoading == true ? 'skeleton-name-suggest' : ''" class="me-2 mb-2">
                         <VCardTitle class="pa-0 name-suggest">
-                            <RouterLink :to="type == 'friends' ? '/profile' : '/groupe'" v-if="!isLoading">{{ user.name }}
+                            <RouterLink :to="type == 'friends' ? '/profile/' + user?.id : '/groupe'" v-if="!isLoading">
+                                {{ user.name }}
                             </RouterLink>
                             <VSkeletonLoader v-if="isLoading" max-width="500" type="text" animation-speed="250" />
                         </VCardTitle>
@@ -70,7 +71,7 @@ const snackbar = ref(false)
                     </div>
 
                     <div v-if="!isLoading" class="v-avatar-group avatar-commun">
-                        <RouterLink v-for="commun in user.amis_communs" to="/profile">
+                        <RouterLink v-for="commun in user.amis_communs" :to="'/profile/' + commun?.id">
                             <VAvatar class="one-avatar" :image="avatar2" size="30" />
                             <v-tooltip activator="parent" location="bottom">{{ commun.name }}</v-tooltip>
                         </RouterLink>

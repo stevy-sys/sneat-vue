@@ -1,12 +1,12 @@
 <template>
     <h1>Suggestion amis</h1>
     <VRow class="friend-suggest-virtual">
-        <v-virtual-scroll height="auto" :items="['1']">
-            <template v-slot:default="{ item }">
-                <Suggest v-for="user in store.getters.getSuggestionFriends.data"
-                    :isLoading="store.getters.getSuggestionFriends.isLoading" :user="user" type="friends" />
-            </template>
-        </v-virtual-scroll>
+        <!-- <v-virtual-scroll height="auto" :items="['1']"> -->
+        <!-- <template v-slot:default="{ item }"> -->
+        <Suggest v-for="user in store.getters.getSuggestionFriends?.data"
+            :isLoading="store.getters.getSuggestionFriends.isLoading" :user="user" type="friends" />
+        <!-- </template>
+        </v-virtual-scroll> -->
     </VRow>
 
     <VRow class="mt-10">
